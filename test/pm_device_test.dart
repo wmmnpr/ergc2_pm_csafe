@@ -20,11 +20,8 @@ void main() {
         AdditionalStatus2.uuid: AdditionalStatus2Characteristic()
       };
 
-      int callCount = 0;
       PmBLEDevice pm = PmBLEDevice(characteristics);
-
       pm.subscribe<StrokeData>(StrokeData.uuid).listen((data) {
-        callCount++;
         var jsonStr = data.toJson();
         print('${Isolate.current.hashCode} -> Received: $jsonStr');
       }, onError: (error) {
@@ -46,11 +43,8 @@ void main() {
         AdditionalStatus2.uuid: AdditionalStatus2Characteristic()
       };
 
-      int callCount = 0;
       PmBLEDevice pm = PmBLEDevice(characteristics);
-
       pm.subscribe<AdditionalStatus2>(AdditionalStatus2.uuid).listen((data) {
-        callCount++;
         var jsonStr = data.toJson();
         print('${Isolate.current.hashCode} -> Received: $jsonStr');
       }, onError: (error) {

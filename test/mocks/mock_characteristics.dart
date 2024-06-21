@@ -6,8 +6,13 @@ import 'package:ergc2_pm_csafe/src/models/additional_status2.dart';
 import 'package:ergc2_pm_csafe/src/models/stroke_data.dart';
 import 'package:hex/hex.dart';
 
+extension StringExtensions on String {
+  String stripCommnad() {
+    return replaceAll(":", "");
+  }
+}
+
 class StrokeDataCharacteristic extends BluetoothCharacteristic<StrokeData> {
-  @override
   List<String> hexDataList = [
     "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00",
     "5f:00:00:1c:00:00:61:4f:00:00:e1:00:63:05:d9:03:00:00:01:00",
@@ -32,10 +37,12 @@ class StrokeDataCharacteristic extends BluetoothCharacteristic<StrokeData> {
     "b3:09:00:e6:03:00:7c:43:ab:00:1a:04:89:07:54:04:fc:13:0a:00",
   ];
 
+  @override
   StrokeData create() {
     return StrokeData();
   }
 
+  @override
   void listen(StreamSink sink) {
     int i = 0;
     void tick(Timer tock) {
@@ -57,7 +64,6 @@ class StrokeDataCharacteristic extends BluetoothCharacteristic<StrokeData> {
 
 class AdditionalStatus2Characteristic
     extends BluetoothCharacteristic<AdditionalStatus2> {
-  @override
   List<String> hexDataList = [
     "2a:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00",
     "5b:00:00:00:41:00:00:00:a4:44:41:00:00:00:00:00:00:00:00:00",
@@ -138,10 +144,12 @@ class AdditionalStatus2Characteristic
     "b9:09:00:01:b5:00:06:00:a4:30:b5:00:06:00:bc:09:00:00:00:00",
   ];
 
+  @override
   AdditionalStatus2 create() {
     return AdditionalStatus2();
   }
 
+  @override
   void listen(StreamSink sink) {
     int i = 0;
     void tick(Timer tock) {
