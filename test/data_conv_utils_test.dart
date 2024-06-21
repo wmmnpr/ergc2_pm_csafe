@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:ergc2_pm_csafe/ergc2_pm_csafe.dart';
-import 'package:ergc2_pm_csafe/src/ergc2_pm_csafe_base.dart';
+import 'package:ergc2_pm_csafe/src/models/additional_status2.dart';
+import 'package:ergc2_pm_csafe/src/models/data_conv_utils.dart';
+import 'package:ergc2_pm_csafe/src/models/stroke_data.dart';
 import 'package:hex/hex.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('data conversion', () {
-
     setUp(() {
       // Additional setup goes here.
     });
