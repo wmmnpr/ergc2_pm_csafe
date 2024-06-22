@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:ergc2_pm_csafe/src/models/pm_data.dart';
 
-abstract class BluetoothCharacteristic<T> {
+abstract class PmBleCharacteristic<T> {
   void listen(StreamSink sink);
 
   T create();
 }
 
 class PmBLEDevice {
-  Map<int, BluetoothCharacteristic> characteristics;
+  Map<int, PmBleCharacteristic> characteristics;
 
   PmBLEDevice(this.characteristics);
 

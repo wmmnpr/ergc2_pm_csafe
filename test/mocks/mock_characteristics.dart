@@ -12,7 +12,7 @@ extension StringExtensions on String {
   }
 }
 
-class StrokeDataCharacteristic extends BluetoothCharacteristic<StrokeData> {
+class StrokeDataCharacteristic extends PmBleCharacteristic<StrokeData> {
   List<String> hexDataList = [
     "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00",
     "5f:00:00:1c:00:00:61:4f:00:00:e1:00:63:05:d9:03:00:00:01:00",
@@ -63,7 +63,7 @@ class StrokeDataCharacteristic extends BluetoothCharacteristic<StrokeData> {
 }
 
 class AdditionalStatus2Characteristic
-    extends BluetoothCharacteristic<AdditionalStatus2> {
+    extends PmBleCharacteristic<AdditionalStatus2> {
   List<String> hexDataList = [
     "2a:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00",
     "5b:00:00:00:41:00:00:00:a4:44:41:00:00:00:00:00:00:00:00:00",

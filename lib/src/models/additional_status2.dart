@@ -39,6 +39,7 @@ class AdditionalStatus2 extends PmData<AdditionalStatus2> {
   int lastSplitTime = 0;
   int lastSplitDistance = 0;
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'elapsedTime': elapsedTime,

@@ -15,7 +15,7 @@ void main() {
       // Additional setup goes here.
     });
     test('StrokeData test', () {
-      Map<int, BluetoothCharacteristic> characteristics = {
+      Map<int, PmBleCharacteristic> characteristics = {
         StrokeData.uuid: StrokeDataCharacteristic(),
         AdditionalStatus2.uuid: AdditionalStatus2Characteristic()
       };
@@ -38,7 +38,7 @@ void main() {
     });
 
     test('AdditionalStatus2 test', () {
-      Map<int, BluetoothCharacteristic> characteristics = {
+      Map<int, PmBleCharacteristic> characteristics = {
         StrokeData.uuid: StrokeDataCharacteristic(),
         AdditionalStatus2.uuid: AdditionalStatus2Characteristic()
       };

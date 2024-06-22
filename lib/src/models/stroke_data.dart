@@ -41,6 +41,7 @@ class StrokeData extends PmData<StrokeData> {
   double workPerStroke = 0;
   int strokeCount = 0;
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       'elapsedTime': elapsedTime,
