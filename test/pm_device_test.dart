@@ -3,8 +3,6 @@ import 'dart:isolate';
 
 import 'package:ergc2_pm_csafe/ergc2_pm_csafe.dart';
 import 'package:ergc2_pm_csafe/src/models/additional_status2.dart';
-import 'package:ergc2_pm_csafe/src/models/stroke_data.dart';
-import 'package:ergc2_pm_csafe/src/pm_device.dart';
 import 'package:test/test.dart';
 
 import 'mocks/mock_characteristics.dart';
@@ -58,6 +56,17 @@ void main() {
 
       expect(Completer().future.timeout(Duration(seconds: 5)),
           throwsA(isA<TimeoutException>()));
+    });
+
+    test('sendCommand test', () async {
+      Map<int, PmBleCharacteristic> characteristics = {
+        StrokeData.uuid: StrokeDataCharacteristic(),
+        AdditionalStatus2.uuid: AdditionalStatus2Characteristic(),
+        CsafeWriteCharacteristic.uuid: CsafeWriteCharacteristic()
+      };
+
+      PmBLEDevice pm = PmBLEDevice(characteristics);
+      pm.sendCommand([0x85]).catchError((error, stackTrace) => print(error));
     });
   });
 }

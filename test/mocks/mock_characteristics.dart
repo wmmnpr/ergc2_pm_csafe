@@ -3,7 +3,6 @@ import 'dart:isolate';
 
 import 'package:ergc2_pm_csafe/ergc2_pm_csafe.dart';
 import 'package:ergc2_pm_csafe/src/models/additional_status2.dart';
-import 'package:ergc2_pm_csafe/src/models/stroke_data.dart';
 import 'package:hex/hex.dart';
 
 extension StringExtensions on String {
@@ -166,5 +165,20 @@ class AdditionalStatus2Characteristic
     }
 
     Timer.periodic(Duration(milliseconds: 100), tick);
+  }
+}
+
+class CsafeWriteCharacteristic extends PmBleCharacteristic<void> {
+
+  static final int uuid = 0x21;
+
+  @override
+  void create() {
+    // TODO: implement create
+  }
+
+  @override
+  Future<void> writeCsafe(IntList command) async {
+    throw UnimplementedError();
   }
 }
