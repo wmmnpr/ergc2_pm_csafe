@@ -50,7 +50,7 @@ class StrokeDataCharacteristic extends PmBleCharacteristic<StrokeData> {
           HEX.decode(hexDataList[i % hexDataList.length].stripCommnad());
       sink.add(buffer);
       int iso = Isolate.current.hashCode;
-      if (i++ > 20) {
+      if (i++ > 10) {
         sink.close();
         tock.cancel();
       }
@@ -157,7 +157,7 @@ class AdditionalStatus2Characteristic
           HEX.decode(hexDataList[i % hexDataList.length].stripCommnad());
       sink.add(buffer);
       int iso = Isolate.current.hashCode;
-      if (i++ > 20) {
+      if (i++ > 10) {
         sink.close();
         tock.cancel();
       }
@@ -179,6 +179,5 @@ class CsafeWriteCharacteristic extends PmBleCharacteristic<void> {
 
   @override
   Future<void> writeCsafe(IntList command) async {
-    throw UnimplementedError();
   }
 }

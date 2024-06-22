@@ -14,4 +14,5 @@ class CsafeCommand extends PmData<CsafeCommand> {
     // TODO: implement toJson
     throw UnimplementedError();
   }
+
 }

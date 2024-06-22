@@ -8,16 +8,17 @@ import 'package:test/test.dart';
 import 'mocks/mock_characteristics.dart';
 
 void main() {
+  late Map<int, PmBleCharacteristic> characteristics;
+
   group('data conversion', () {
     setUp(() {
-      // Additional setup goes here.
+      characteristics = {
+        StrokeData.uuid: StrokeDataCharacteristic(),
+        AdditionalStatus2.uuid: AdditionalStatus2Characteristic(),
+        CsafeWriteCharacteristic.uuid: CsafeWriteCharacteristic()
+      };
     });
     test('StrokeData test', () {
-      Map<int, PmBleCharacteristic> characteristics = {
-        StrokeData.uuid: StrokeDataCharacteristic(),
-        AdditionalStatus2.uuid: AdditionalStatus2Characteristic()
-      };
-
       PmBLEDevice pm = PmBLEDevice(characteristics);
       pm.subscribe<StrokeData>(StrokeData.uuid).listen((data) {
         var jsonStr = data.toJson();
@@ -31,16 +32,11 @@ void main() {
       print("just before end of main $iso");
       print("end of main $iso");
 
-      expect(Completer().future.timeout(Duration(seconds: 5)),
+      expect(Completer().future.timeout(Duration(seconds: 2)),
           throwsA(isA<TimeoutException>()));
     });
 
     test('AdditionalStatus2 test', () {
-      Map<int, PmBleCharacteristic> characteristics = {
-        StrokeData.uuid: StrokeDataCharacteristic(),
-        AdditionalStatus2.uuid: AdditionalStatus2Characteristic()
-      };
-
       PmBLEDevice pm = PmBLEDevice(characteristics);
       pm.subscribe<AdditionalStatus2>(AdditionalStatus2.uuid).listen((data) {
         var jsonStr = data.toJson();
@@ -54,19 +50,13 @@ void main() {
       print("just before end of main $iso");
       print("end of main $iso");
 
-      expect(Completer().future.timeout(Duration(seconds: 5)),
+      expect(Completer().future.timeout(Duration(seconds: 2)),
           throwsA(isA<TimeoutException>()));
     });
 
     test('sendCommand test', () async {
-      Map<int, PmBleCharacteristic> characteristics = {
-        StrokeData.uuid: StrokeDataCharacteristic(),
-        AdditionalStatus2.uuid: AdditionalStatus2Characteristic(),
-        CsafeWriteCharacteristic.uuid: CsafeWriteCharacteristic()
-      };
-
       PmBLEDevice pm = PmBLEDevice(characteristics);
-      pm.sendCommand([0x85]).catchError((error, stackTrace) => print(error));
+      pm.sendCommand([0x85]).whenComplete(() => print("done"));
     });
   });
 }
