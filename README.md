@@ -21,15 +21,6 @@ const like = 'sample';
 
 ## Additional information
 
-#useful jq filters
-
-#extract value for a particular characteristic:
-jq  '.[] | select(.["_source"]["layers"]["btatt"]["btatt.handle_tree"]["btatt.uuid128"] == "ce:06:00:33:43:e5:11:e4:91:6c:08:00:20:0c:9a:66")' pm5-ergdata-airplus-202406092300-full.json | jq  '.["_source"]["layers"]["btatt"]["btatt.value"]' 
-
-#same but with a comman at the end.
-jq  '.[] | select(.["_source"]["layers"]["btatt"]["btatt.handle_tree"]["btatt.uuid128"] == "ce:06:00:33:43:e5:11:e4:91:6c:08:00:20:0c:9a:66")' pm5-ergdata-airplus-202406092300-full.json | jq  '(.["_source"]["layers"]["btatt"]["btatt.value"])+","' 
-
-
 
 
 
