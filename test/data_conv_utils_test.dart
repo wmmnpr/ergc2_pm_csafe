@@ -1,11 +1,8 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:ergc2_pm_csafe/ergc2_pm_csafe.dart';
 import 'package:ergc2_pm_csafe/src/models/additional_status2.dart';
 import 'package:ergc2_pm_csafe/src/models/data_conv_utils.dart';
-import 'package:ergc2_pm_csafe/src/models/pm_data.dart';
-import 'package:ergc2_pm_csafe/src/models/stroke_data.dart';
 import 'package:hex/hex.dart';
 import 'package:test/test.dart';
 
@@ -153,16 +150,23 @@ void main() {
       }
     });
 
-
-
     test('Csafe conversion', () {
       Map<IntList, IntList> hexDataList = {
         [0x85]: [0xf1, 0x85, 0x85, 0xf2],
         [0xf3]: [0xf1, 0xf3, 0x03, 0xf3, 0xf2],
-        [0x21, 0x03, 0x01, 0x00, 0x22]: [0xf1, 0x21, 0x03, 0x1, 0x00, 0x22, 0x01, 0xf2]
+        [0x21, 0x03, 0x01, 0x00, 0x22]: [
+          0xf1,
+          0x21,
+          0x03,
+          0x1,
+          0x00,
+          0x22,
+          0x01,
+          0xf2
+        ]
       };
 
-      for (int i = 0; i<hexDataList.length; i++) {
+      for (int i = 0; i < hexDataList.length; i++) {
         IntList csafeCmd = DataConvUtils.toCsafe(hexDataList.keys.elementAt(i));
         expect(csafeCmd, hexDataList.values.elementAt(i));
       }
