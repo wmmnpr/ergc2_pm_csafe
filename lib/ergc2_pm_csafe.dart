@@ -6,4 +6,5 @@ library;
 export 'src/pm_device.dart';
 export 'src/models/pm_data.dart';
 export 'src/models/stroke_data.dart';
+export 'src/models/data_conv_utils.dart';
 // TODO: Export any libraries intended for clients of this package.
