@@ -27,7 +27,7 @@ enum StrokeDataByteFieldIndex {
 }
 
 class StrokeData extends PmData<StrokeData> {
-  static final int uuid = 0x0035;
+  static final int uuid = 'ce060035-43e5-11e4-916c-0800200c9a66'.hashCode;
 
   int elapsedTime = 0;
   double distance = 0;

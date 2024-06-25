@@ -27,7 +27,7 @@ enum AdditionalStatus2ByteFieldIndex {
 }
 
 class AdditionalStatus2 extends PmData<AdditionalStatus2> {
-  static final int uuid = 0x0033;
+  static final int uuid = 'ce060033-43e5-11e4-916c-0800200c9a66'.hashCode;
 
   int elapsedTime = 0;
   int intervalCount = 0;

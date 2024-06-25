@@ -168,16 +168,17 @@ class AdditionalStatus2Characteristic
   }
 }
 
-class CsafeWriteCharacteristic extends PmBleCharacteristic<void> {
-
-  static final int uuid = 0x21;
+class CsafeBufferCharacteristic extends PmBleCharacteristic<CsafeBuffer> {
+  @override
+  Future<void> writeCsafe(IntList csafeCmd) async {}
 
   @override
-  void create() {
-    // TODO: implement create
+  Future<List<int>> readCsafe() async {
+    return Future.value([]);
   }
 
   @override
-  Future<void> writeCsafe(IntList command) async {
+  CsafeBuffer create() {
+    return CsafeBuffer();
   }
 }

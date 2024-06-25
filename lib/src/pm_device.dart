@@ -12,7 +12,13 @@ abstract class PmBleCharacteristic<T> {
     throw UnimplementedError();
   }
 
-  T create();
+  Future<IntList> readCsafe() async {
+    throw UnimplementedError();
+  }
+
+  T create() {
+    throw UnimplementedError();
+  }
 }
 
 class PmBLEDevice {
@@ -34,9 +40,14 @@ class PmBLEDevice {
     return clientStream.stream;
   }
 
-  Future<void> sendCommand(IntList command, [String message = "NONE"]) async {
+  Future<void> sendCommand(int uuid, IntList command,
+      [String message = "NONE"]) async {
     print(message);
     IntList csafeBuffer = DataConvUtils.toCsafe(command);
-    return characteristics[0x21]!.writeCsafe(csafeBuffer);
+    return characteristics[uuid]!.writeCsafe(csafeBuffer);
+  }
+
+  Future<IntList> readCharacteristic(int uuid) async {
+    return characteristics[uuid]!.readCsafe();
   }
 }

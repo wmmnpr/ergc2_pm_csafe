@@ -1,0 +1,94 @@
+
+{
+  "_index": "packets-2024-06-07",
+  "_type": "doc",
+  "_score": null,
+  "_source": {
+    "layers": {
+      "frame": {
+        "frame.section_number": "1",
+        "frame.interface_id": "0",
+        "frame.interface_id_tree": {
+          "frame.interface_name": "/dev/cu.usbmodem2101-4.2",
+          "frame.interface_description": "nRF Sniffer for Bluetooth LE"
+        },
+        "frame.encap_type": "186",
+        "frame.time": "Jun  7, 2024 22:38:45.138661000 CEST",
+        "frame.time_utc": "Jun  7, 2024 20:38:45.138661000 UTC",
+        "frame.time_epoch": "1717792725.138661000",
+        "frame.offset_shift": "0.000000000",
+        "frame.time_delta": "0.000230000",
+        "frame.time_delta_displayed": "0.000230000",
+        "frame.time_relative": "50.155504000",
+        "frame.number": "1280",
+        "frame.len": "47",
+        "frame.cap_len": "47",
+        "frame.marked": "0",
+        "frame.ignored": "0",
+        "frame.protocols": "nordic_ble:btle:btl2cap:btatt"
+      },
+      "nordic_ble": {
+        "nordic_ble.board_id": "247",
+        "nordic_ble.header": {
+          "nordic_ble.plen": "40",
+          "nordic_ble.protover": "3",
+          "nordic_ble.packet_counter": "6000",
+          "nordic_ble.packet_id": "6"
+        },
+        "nordic_ble.len": "10",
+        "nordic_ble.flags": "0x01",
+        "nordic_ble.flags_tree": {
+          "nordic_ble.crcok": "1",
+          "nordic_ble.direction": "0",
+          "nordic_ble.encrypted": "0",
+          "nordic_ble.mic_not_relevant": "0",
+          "nordic_ble.phy": "0",
+          "nordic_ble.flag_reserved7": "0"
+        },
+        "nordic_ble.channel": "16",
+        "nordic_ble.rssi": "-43",
+        "nordic_ble.event_counter": "564",
+        "nordic_ble.time": "271367051",
+        "nordic_ble.packet_time": "248",
+        "nordic_ble.delta_time": "150",
+        "nordic_ble.delta_time_ss": "230"
+      },
+      "btle": {
+        "btle.access_address": "0x5065746f",
+        "btle.master_bd_addr": "44:f7:62:90:35:23",
+        "btle.slave_bd_addr": "d0:46:55:f7:61:f7",
+        "btle.data_header": {
+          "btle.data_header.llid": "0x02",
+          "btle.data_header.next_expected_sequence_number": "0",
+          "btle.data_header.sequence_number": "1",
+          "btle.data_header.more_data": "0",
+          "btle.data_header.cte_info_present": "0",
+          "btle.data_header.rfu": "0",
+          "btle.data_header.length": "21"
+        },
+        "btle.length": "21",
+        "btle.l2cap_index": "356",
+        "btle.connection_parameters_in": "24",
+        "btle.crc": "0xc3a7a5"
+      },
+      "btl2cap": {
+        "btl2cap.length": "17",
+        "btl2cap.cid": "0x0004"
+      },
+      "btatt": {
+        "btatt.opcode": "0x1b",
+        "btatt.opcode_tree": {
+          "btatt.opcode.authentication_signature": "0",
+          "btatt.opcode.command": "0",
+          "btatt.opcode.method": "0x1b"
+        },
+        "btatt.handle": "0x0010",
+        "btatt.handle_tree": {
+          "btatt.service_uuid128": "ce:06:00:20:43:e5:11:e4:91:6c:08:00:20:0c:9a:66",
+          "btatt.uuid128": "ce:06:00:22:43:e5:11:e4:91:6c:08:00:20:0c:9a:66"
+        },
+        "btatt.value": "f0:00:fd:81:76:05:01:03:05:14:13:f3:02:f2"
+      }
+    }
+  }
+}

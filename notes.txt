@@ -9,4 +9,43 @@ jq  '.[] | select(.["_source"]["layers"]["btatt"]["btatt.handle_tree"]["btatt.uu
 #same but with a comman at the end.
 jq  '.[] | select(.["_source"]["layers"]["btatt"]["btatt.handle_tree"]["btatt.uuid128"] == "ce:06:00:33:43:e5:11:e4:91:6c:08:00:20:0c:9a:66")' pm5-ergdata-airplus-202406092300-full.json | jq  '(.["_source"]["layers"]["btatt"]["btatt.value"])+","'
 
+# get characteristic direction
+jq  '.[] | select(.["_source"]["layers"]["btatt"]["btatt.handle_tree"]["btatt.uuid128"] == "ce:06:00:22:43:e5:11:e4:91:6c:08:00:20:0c:9a:66")' pm5-ergdata-airplus-202406092300-full.json
+ | jq  '(.["_source"]["layers"]["nordic_ble"]["nordic_ble.flags_tree"]["nordic_ble.direction"])+","'
+
+#get direction, uuid, value
+jq  ' .[]["_source"]["layers"] | {direction: .["nordic_ble"]["nordic_ble.flags_tree"]["nordic_ble.direction"] , uuid: .["btatt"]["btatt.handle_tree"]["btatt.uuid128"], value: .["btatt"]["btatt.value"]}' pm5-ergdata-airplus-202406092300-full.json | jq  'select(.["uuid"] == "ce:06:00:33:43:e5:11:e4:91:6c:08:00:20:0c:9a:66")'
+
+
+From page 76 of PM5 documentation
+7618010103030580000007D00505800000019014010113020101 -> f18176050103051413f302f2
+
+
+
+flutter: ignoring characteristic: ce060012-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060013-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060014-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060015-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060011-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060016-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060017-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060018-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060031-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060033-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060034-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060036-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060037-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060038-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060039-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce06003a-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce06003b-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce060080-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: ce06003d-43e5-11e4-916c-0800200c9a66
+flutter: ignoring characteristic: 2acc
+flutter: ignoring characteristic: 2ad1
+
+
+
+
+jq  '.[] | select(.["_source"]["layers"]["btatt"]["btatt.handle_tree"]["btatt.uuid128"] == "ce:06:00:21:43:e5:11:e4:91:6c:08:00:20:0c:9a:66")' pm5-ergdata-airplus-202406092300-full.json | jq  '.["_source"]["layers"]["btatt"]["btatt.value"]'
 

@@ -15,7 +15,10 @@ void main() {
       characteristics = {
         StrokeData.uuid: StrokeDataCharacteristic(),
         AdditionalStatus2.uuid: AdditionalStatus2Characteristic(),
-        CsafeWriteCharacteristic.uuid: CsafeWriteCharacteristic()
+        'ce060021-43e5-11e4-916c-0800200c9a66'.hashCode:
+            CsafeBufferCharacteristic(),
+        'ce060022-43e5-11e4-916c-0800200c9a66'.hashCode:
+            CsafeBufferCharacteristic()
       };
     });
     test('StrokeData test', () {
@@ -56,7 +59,15 @@ void main() {
 
     test('sendCommand test', () async {
       PmBLEDevice pm = PmBLEDevice(characteristics);
-      pm.sendCommand([0x85]).whenComplete(() => print("done"));
+      pm.sendCommand('ce060021-43e5-11e4-916c-0800200c9a66'.hashCode,
+          [0x85]).whenComplete(() => print("done"));
+    });
+
+    test('readCsafe test', () async {
+      PmBLEDevice pm = PmBLEDevice(characteristics);
+      pm
+          .readCharacteristic('ce060022-43e5-11e4-916c-0800200c9a66'.hashCode)
+          .then((value) => print(String.fromCharCodes(value)));
     });
   });
 }
