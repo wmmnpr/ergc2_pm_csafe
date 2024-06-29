@@ -1,3 +1,5 @@
+import '../../ergc2_pm_csafe.dart';
+
 typedef IntList = List<int>;
 
 abstract class PmData<T> {
@@ -10,4 +12,19 @@ abstract class PmData<T> {
   }
 
   Map<String, dynamic> toJson();
+}
+
+class CsafeBuffer extends PmData<CsafeBuffer> {
+  List<int> buffer = [];
+
+  @override
+  CsafeBuffer from(List<int> intList) {
+    this.buffer = intList;
+    return this;
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {'buffer': DataConvUtils.intArrayToHex(buffer)};
+  }
 }

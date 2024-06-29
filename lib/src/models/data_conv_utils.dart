@@ -13,10 +13,26 @@ class DataConvUtils {
     return (data[offset + 2] << 16) + (data[offset + 1] << 8) + (data[offset]);
   }
 
+  static int getUint32(List<int> data, int offset) {
+    return (data[offset + 3] << 24) + (data[offset + 2] << 16) + (data[offset + 1] << 8) + (data[offset]);
+  }
+
   static int checksum(List<int> content) {
     int checksum = 0;
     for (int i = 0; i < content.length; i++) {
       checksum ^= content[i];
+    }
+    return checksum;
+  }
+
+  static int csafe_checksum(List<int> content, int start, int end) {
+    int checksum = 0;
+    for (int i = start; i < end; i++) {
+      checksum ^= content[i];
+    }
+
+    if (checksum != 0) {
+      throw Exception("csafe checksum failed");
     }
     return checksum;
   }

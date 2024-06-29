@@ -5,7 +5,7 @@ import 'package:ergc2_pm_csafe/src/models/additional_status2.dart';
 import 'package:hex/hex.dart';
 import 'package:test/test.dart';
 
-import 'mocks/mock_characteristics.dart';
+import 'mocks/csafe_buffer_parser_test.dart';
 
 void main() {
   group('data conversion', () {
