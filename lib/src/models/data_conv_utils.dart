@@ -14,7 +14,10 @@ class DataConvUtils {
   }
 
   static int getUint32(List<int> data, int offset) {
-    return (data[offset] << 24) + (data[offset + 1] << 16) + (data[offset + 2] << 8) + (data[offset + 3]);
+    return (data[offset] << 24) +
+        (data[offset + 1] << 16) +
+        (data[offset + 2] << 8) +
+        (data[offset + 3]);
   }
 
   static int checksum(List<int> content) {
@@ -38,16 +41,20 @@ class DataConvUtils {
   }
 
   static String intArrayToHex(List<int> intArray) {
-    for (var value in intArray) {
-      if (value < 0 || value > 255) {
+    return intSubArrayToHex(intArray, 0, intArray.length);
+  }
+
+  static String intSubArrayToHex(List<int> intArray, int start, int len) {
+    for (int i = start; i < start + len; i++) {
+      if (intArray[i] < 0 || intArray[i] > 255) {
         throw ArgumentError('All integers must be in the range 0-255.');
       }
     }
 
     // Convert each integer to a two-character hex string and concatenate them
     final hexStringBuffer = StringBuffer();
-    for (var value in intArray) {
-      hexStringBuffer.write(value.toRadixString(16).padLeft(2, '0'));
+    for (int i = start; i < start + len; i++) {
+      hexStringBuffer.write(intArray[i].toRadixString(16).padLeft(2, '0'));
     }
     return hexStringBuffer.toString();
   }

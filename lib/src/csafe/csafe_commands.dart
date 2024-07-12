@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import '../../ergc2_pm_csafe.dart';
 import 'csafe_constants.dart';
-import 'dart:convert';
 
 // @formatter:on
 
@@ -33,11 +34,10 @@ Map<int, int Function(IntList, int, Map<String, Object>)>
       csafePmSetSplitduration
 };
 
-
 class CsafeBufferParser {
   static final Map<int, Object> _commandsParser = _initCommandParsers();
-  static final Map<int, FrameContentProcessor> _responseParser = _initResponseParsers();
-
+  static final Map<int, FrameContentProcessor> _responseParser =
+      _initResponseParsers();
 
   static _initCommandParsers() {
     Map<int, Object> v = {};
@@ -53,6 +53,12 @@ class CsafeBufferParser {
         in CSAFE_PROP_SHORT_GET_CONF_CMDS.values) {
       v.putIfAbsent(e.id, () => FrameContentProcessor(e.id, e.fields));
     }
+
+    for (CSAFE_PROP_LONG_GET_DATA_CMDS e
+        in CSAFE_PROP_LONG_GET_DATA_CMDS.values) {
+      v.putIfAbsent(e.id, () => FrameContentProcessor(e.id, e.fields));
+    }
+
     return v;
   }
 
@@ -103,7 +109,7 @@ class CsafeBufferParser {
       if (data[j] == CSAFE_FRAME_END_BYTE) break;
       //print("#$j:value=${data[j].toRadixString(16).padLeft(2, '0')}");
       int v = data[j];
-      if(_responseParser.containsKey(v)){
+      if (_responseParser.containsKey(v)) {
         j = _responseParser[v]!.process(context, data, j);
         print("hi");
       }
