@@ -14,7 +14,7 @@ class DataConvUtils {
   }
 
   static int getUint32(List<int> data, int offset) {
-    return (data[offset + 3] << 24) + (data[offset + 2] << 16) + (data[offset + 1] << 8) + (data[offset]);
+    return (data[offset] << 24) + (data[offset + 1] << 16) + (data[offset + 2] << 8) + (data[offset + 3]);
   }
 
   static int checksum(List<int> content) {

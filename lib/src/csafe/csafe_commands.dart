@@ -1,5 +1,6 @@
 import '../../ergc2_pm_csafe.dart';
 import 'csafe_constants.dart';
+import 'dart:convert';
 
 // @formatter:on
 
@@ -28,14 +29,32 @@ Map<int, int Function(IntList, int, Map<String, Object>)>
     COMMAND_ID_ACTION_MAP = {
   0x76: commandWrapper,
   0x7e: handle,
-  CSAFE_PM_LONG_PUSH_CFG_CMDS.CSAFE_PM_SET_SPLITDURATION.index:
+  CSAFE_PROPRIETARY_LONG_CMDS.CSAFE_PM_SET_SPLITDURATION.index:
       csafePmSetSplitduration
 };
 
-class CsafeBufferParser {
-  static Map<int, Object> resp = {};
 
-  static void init() {}
+class CsafeBufferParser {
+  static final Map<int, Object> _commandsParser = _initCommandParsers();
+  static final Map<int, FrameContentProcessor> _responseParser = _initResponseParsers();
+
+
+  static _initCommandParsers() {
+    Map<int, Object> v = {};
+    for (CSAFE_PUBLIC_SHORT_CMDS e in CSAFE_PUBLIC_SHORT_CMDS.values) {
+      v.putIfAbsent(e.id, () => e);
+    }
+    return v;
+  }
+
+  static _initResponseParsers() {
+    Map<int, FrameContentProcessor> v = {};
+    for (CSAFE_PROP_SHORT_GET_CONF_CMDS e
+        in CSAFE_PROP_SHORT_GET_CONF_CMDS.values) {
+      v.putIfAbsent(e.id, () => FrameContentProcessor(e.id, e.fields));
+    }
+    return v;
+  }
 
   static _addressText(int v) => v == 0x00 ? "Master" : "Slave";
 
@@ -56,7 +75,7 @@ class CsafeBufferParser {
     return data;
   }
 
-  static Map<String, Object> parseResponse(IntList inputList) {
+  Map<String, Object> parseResponseFrame(IntList inputList) {
     IntList data = _unpack(inputList);
     Map<String, Object> response = {};
     int i = 0;
@@ -72,16 +91,26 @@ class CsafeBufferParser {
       case CSAFE_FRAME_START_BYTE:
         response["checksum"] =
             DataConvUtils.csafe_checksum(data, 1, data.length - 1);
-        i = 2;
+        response["state"] = _stateText(data[++i])!;
+        i = 1;
       default:
         throw Exception("no start byte");
     }
-    for (int j = i; i < data.length; i++) {
+
+    //parse frame contents
+    CsafeParserContext context = CsafeParserContext();
+    for (int j = i; j < data.length - 2; j++) {
       if (data[j] == CSAFE_FRAME_END_BYTE) break;
-
-      j = COMMAND_ID_ACTION_MAP[data[j]]!(data, i, response);
+      //print("#$j:value=${data[j].toRadixString(16).padLeft(2, '0')}");
+      int v = data[j];
+      if(_responseParser.containsKey(v)){
+        j = _responseParser[v]!.process(context, data, j);
+        print("hi");
+      }
     }
+    response.putIfAbsent("data", () => context.result);
 
+    print(jsonEncode(response));
     return response;
   }
 }
