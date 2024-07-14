@@ -1,6 +1,6 @@
 /* Frame contents */
 // @formatter:off
-import 'package:ergc2_pm_csafe/ergc2_pm_csafe.dart';
+
 
 const int CSAFE_EXT_FRAME_START_BYTE        = 0xF0;
 const int CSAFE_FRAME_START_BYTE            = 0xF1;
@@ -72,65 +72,9 @@ const int CSAFE_GETPMDATA_CMD_LONG_MIN      = 0x68;
 const int CSAFE_SETPMDATA_CMD_SHORT_MIN     = 0xD0;
 const int CSAFE_SETPMDATA_CMD_LONG_MIN      = 0x30;
 
-typedef Unmarshal = Map<String, Object>Function(List<String> keys, IntList);
-typedef Marshal = IntList Function (Map<String, Object>);
-
-Map<String, Object>unpackByte(List<String> keys, IntList values) {
-  return {
-    keys[0]: values[0]
-  };
-}
-
-IntList packByte(Map<String, Object>map) {
-  return [1];
-}
-
 enum FrameFieldType {
   CHAR, INT, INT2, INT3, INT4, FLOAT, VAR_BUFF;
 }
-
-class CsafeParserContext {
-  Map<String, Object>result = {};
-}
-
-class FrameContentProcessor{
-  int cmd;
-  Map<String, FrameFieldType>?fields;
-
-  FrameContentProcessor(this.cmd, this.fields);
-
-  int process(CsafeParserContext context, IntList data, int start){
-    int cmd = data[start];
-    assert(cmd == this.cmd);
-    int length = data[start+1];
-    int pos = start + 2;
-    this.fields!.forEach((key, value) {
-      switch(value){
-        case FrameFieldType.CHAR:
-          context.result.putIfAbsent(key, () => data[pos].toString());
-          pos = pos + 1;
-        case FrameFieldType.INT:
-          context.result.putIfAbsent(key, () => data[pos]);
-          pos = pos + 1;
-        case FrameFieldType.INT2:
-          context.result.putIfAbsent(key, () => (data[pos] << 8) + data[pos+1]);
-          pos = pos + 2;
-        case FrameFieldType.INT3:
-          context.result.putIfAbsent(key, () => (data[pos] << 16) + (data[pos+1] << 8) + data[pos+2]);
-          pos = pos + 3;
-        case FrameFieldType.INT4:
-          context.result.putIfAbsent(key, () => (data[pos] << 24) + (data[pos+1] << 16) + (data[pos+2] << 8) + data[pos+3]);
-          pos = pos + 4;
-        case FrameFieldType.VAR_BUFF:
-          context.result.putIfAbsent(key, () => DataConvUtils.intSubArrayToHex(data, pos, length));
-          pos = pos + length;
-        default:
-      }
-    });
-    return pos;
-  }
-}
-
 
 /// Public Short Commands
 /// Page: 46 & 47
@@ -226,10 +170,10 @@ enum CSAFE_PUBLIC_LONG_CMDS {
   CSAFE_APPENDTEXT_CMD                (0x61, {"buffer": FrameFieldType.VAR_BUFF}),
   CSAFE_GETTEXTSTATUS_CMD             (0x65, {"buffer": FrameFieldType.VAR_BUFF}),
   CSAFE_GETCAPS_CMD                   (0x70, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_SETPMCFG_CMD                  (0x76, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_SETPMDATA_CMD                 (0x77, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETPMCFG_CMD                  (0x7E, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETPMDATA_CMD                 (0x7F, {"buffer": FrameFieldType.VAR_BUFF});
+  CSAFE_SETPMCFG_CMD                  (0x76, {}),
+  CSAFE_SETPMDATA_CMD                 (0x77, {}),
+  CSAFE_GETPMCFG_CMD                  (0x7E, {}),
+  CSAFE_GETPMDATA_CMD                 (0x7F, {});
   final int id;
   final Map<String, FrameFieldType>fields;
   const CSAFE_PUBLIC_LONG_CMDS(this.id, this.fields);
@@ -255,14 +199,13 @@ enum CSAFE_PROPRIETARY_SHORT_CMDS {
 /// Page: 50
 ///
 enum CSAFE_PROPRIETARY_LONG_CMDS {
-  CSAFE_PM_SET_SPLITDURATION          (0x05, null, null),
-  CSAFE_PM_GET_FORCEPLOTDATA          (0x6B, null, null),
-  CSAFE_PM_SET_SCREENERRORMODE        (0x27, null, null),
-  CSAFE_PM_GET_HEARTBEATDATA          (0x6C, null, null);
+  CSAFE_PM_SET_SPLITDURATION          (0x05, null),
+  CSAFE_PM_GET_FORCEPLOTDATA          (0x6B, null),
+  CSAFE_PM_SET_SCREENERRORMODE        (0x27, null),
+  CSAFE_PM_GET_HEARTBEATDATA          (0x6C, null);
   final int id;
-  final Unmarshal? unpack;
-  final Marshal? pack;
-  const CSAFE_PROPRIETARY_LONG_CMDS(this.id, this.unpack, this.pack);
+  final Map<String, FrameFieldType>?fields;
+  const CSAFE_PROPRIETARY_LONG_CMDS(this.id, this.fields);
 }
 
 
@@ -426,3 +369,4 @@ enum RACE_TYPE {
   const RACE_TYPE(this.id);
 
 }
+// @formatter:on
