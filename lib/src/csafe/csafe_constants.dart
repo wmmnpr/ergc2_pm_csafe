@@ -73,7 +73,7 @@ const int CSAFE_SETPMDATA_CMD_SHORT_MIN     = 0xD0;
 const int CSAFE_SETPMDATA_CMD_LONG_MIN      = 0x30;
 
 enum FrameFieldType {
-  CHAR, INT, INT2, INT3, INT4, FLOAT, VAR_BUFF;
+  CHAR, INT, INT2, INT3, INT4, FLOAT, VAR_BUFF, KEY;
 }
 
 /// Public Short Commands
@@ -215,46 +215,46 @@ enum CSAFE_PROPRIETARY_LONG_CMDS {
 ///
 
 enum CSAFE_PROP_SHORT_GET_CONF_CMDS {
-  CSAFE_PM_GET_FW_VERSION                             (0x80, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_HW_VERSION                             (0x81, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_HW_ADDRESS                             (0x82, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_TICK_TIMEBASE                          (0x83, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_HRM                                    (0x84, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_DATETIME                               (0x85, {"hours": FrameFieldType.INT, "minutes": FrameFieldType.INT, "meridiem": FrameFieldType.INT, "month": FrameFieldType.INT, "day": FrameFieldType.INT, "year": FrameFieldType.INT2}),
-  CSAFE_PM_GET_SCREENSTATESTATUS                      (0x86, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_RACE_LANE_REQUEST                      (0x87, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_RACE_ENTRY_REQUEST                     (0x88, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_WORKOUTTYPE                            (0x89, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_DISPLAYTYPE                            (0x8A, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_DISPLAYUNITS                           (0x8B, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_LANGUAGETYPE                           (0x8C, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_WORKOUTSTATE                           (0x8D, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_INTERVALTYPE                           (0x8E, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_OPERATIONALSTATE                       (0x8F, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_LOGCARDSTATE                           (0x90, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_LOGCARDSTATUS                          (0x91, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_POWERUPSTATE                           (0x92, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_ROWINGSTATE                            (0x93, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_SCREENCONTENT_VERSION                  (0x94, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_COMMUNICATIONSTATE                     (0x95, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_RACEPARTICIPANTCOUNT                   (0x96, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_BATTERYLEVELPERCENT                    (0x97, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_RACEMODESTATUS                         (0x98, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_INTERNALLOGPARAMS                      (0x99, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_PRODUCTCONFIGURATION                   (0x9A, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_ERGSLAVEDISCOVERREQUESTSTATUS          (0x9B, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_WIFICONFIG                             (0x9C, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_CPUTICKRATE                            (0x9D, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_LOGCARDUSERCENSUS                      (0x9E, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_WORKOUTINTERVALCOUNT                   (0x9F, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_WORKOUTDURATION                        (0xE8, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_WORKOTHER                              (0xE9, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_EXTENDED_HRM                           (0xEA, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_DEFCALIBRATIONVERFIED                  (0xEB, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_FLYWHEELSPEED                          (0xEC, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_ERGMACHINETYPE                         (0xED, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_RACE_BEGINEND_TICKCOUNT                (0xEE, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_PM5_FWUPDATESTATUS                     (0xEF, {"buffer": FrameFieldType.VAR_BUFF});
+  CSAFE_PM_GET_FW_VERSION                       (0x80, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_HW_VERSION                       (0x81, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_HW_ADDRESS                       (0x82, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_TICK_TIMEBASE                    (0x83, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_HRM                              (0x84, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_DATETIME                         (0x85, {"hours": FrameFieldType.INT, "minutes": FrameFieldType.INT, "meridiem": FrameFieldType.INT, "month": FrameFieldType.INT, "day": FrameFieldType.INT, "year": FrameFieldType.INT2}),
+  CSAFE_PM_GET_SCREENSTATESTATUS                (0x86, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_RACE_LANE_REQUEST                (0x87, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_RACE_ENTRY_REQUEST               (0x88, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_WORKOUTTYPE                      (0x89, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_DISPLAYTYPE                      (0x8A, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_DISPLAYUNITS                     (0x8B, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_LANGUAGETYPE                     (0x8C, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_WORKOUTSTATE                     (0x8D, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_INTERVALTYPE                     (0x8E, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_OPERATIONALSTATE                 (0x8F, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_LOGCARDSTATE                     (0x90, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_LOGCARDSTATUS                    (0x91, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_POWERUPSTATE                     (0x92, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_ROWINGSTATE                      (0x93, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_SCREENCONTENT_VERSION            (0x94, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_COMMUNICATIONSTATE               (0x95, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_RACEPARTICIPANTCOUNT             (0x96, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_BATTERYLEVELPERCENT              (0x97, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_RACEMODESTATUS                   (0x98, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_INTERNALLOGPARAMS                (0x99, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_PRODUCTCONFIGURATION             (0x9A, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_ERGSLAVEDISCOVERREQUESTSTATUS    (0x9B, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_WIFICONFIG                       (0x9C, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_CPUTICKRATE                      (0x9D, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_LOGCARDUSERCENSUS                (0x9E, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_WORKOUTINTERVALCOUNT             (0x9F, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_WORKOUTDURATION                  (0xE8, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_WORKOTHER                        (0xE9, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_EXTENDED_HRM                     (0xEA, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_DEFCALIBRATIONVERFIED            (0xEB, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_FLYWHEELSPEED                    (0xEC, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_ERGMACHINETYPE                   (0xED, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_RACE_BEGINEND_TICKCOUNT          (0xEE, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_PM5_FWUPDATESTATUS               (0xEF, {"buffer": FrameFieldType.VAR_BUFF});
 
   final int id;
   final Map<String, FrameFieldType>fields;
@@ -264,26 +264,92 @@ enum CSAFE_PROP_SHORT_GET_CONF_CMDS {
 /// C2 Proprietary Long Get Configuration Commands
 /// Page: 57
 ///
-
+enum CSAFE_PROP_LONG_GET_CONF_CMDS {
+  CSAFE_PM_GET_ERG_NUMBER                       (0x50, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_ERGNUMBERREQUE                   (0x51, {"buffer": FrameFieldType.VAR_BUFF}),
+  TCSAFE_PM_GET_USERIDSTRING                    (0x52, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_LOCALRACEPARTICIPANT             (0x53, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_USER_ID                          (0x54, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_USER_PROFILE                     (0x55, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_HRBELT_INFO                      (0x56, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_EXTENDED_HRBELT_INFO             (0x57, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_CURRENT_LOG_STRUCTURE            (0x58, {"buffer": FrameFieldType.VAR_BUFF});
+  final int id;
+  final Map<String, FrameFieldType>fields;
+  const CSAFE_PROP_LONG_GET_CONF_CMDS(this.id, this.fields);
+}
 
 /// C2 Proprietary Short Get Data Commands
 /// Page: 59
 ///
+enum CSAFE_PROP_SHORT_GET_DATA_CMDS {
+  CSAFE_PM_GET_WORKTIME                         (0xA0, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_PROJECTED_WORKTIME               (0xA1, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_TOTAL_RESTTIME                   (0xA2, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_WORKDISTANCE                     (0xA3, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_TOTAL_WORKDISTANCE               (0xA4, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_PROJECTED_WORKDISTANCE           (0xA5, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_RESTDISTANCE                     (0xA6, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_TOTAL_RESTDISTANCE               (0xA7, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_STROKE_500M_PACE                 (0xA8, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_STROKE_POWER                     (0xA9, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_STROKE_CALORICBURNRATE           (0xAA, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_SPLIT_AVG_500M_PACE              (0xAB, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_SPLIT_AVG_POWER                  (0xAC, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_SPLIT_AVG_CALORICBURNRATE        (0xAD, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_SPLIT_AVG_CALORIES               (0xAE, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_TOTAL_AVG_500MPACE               (0xAF, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_TOTAL_AVG_POWER                  (0xB0, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_TOTAL_AVG_CALORICBURNRATE        (0xB1, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_TOTAL_AVG_CALORIES               (0xB2, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_STROKE_RATE                      (0xB3, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_SPLIT_AVG_STROKERATE             (0xB4, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_TOTAL_AVG_STROKERATE             (0xB5, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_AVG_HEART_RATE                   (0xB6, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_ENDING_AVG_HEARTRATE             (0xB7, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_REST_AVG_HEARTRATE               (0xB8, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_SPLITTIME                        (0xB9, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_LAST_SPLITTIME                   (0xBA, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_SPLITDISTANCE                    (0xBB, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_LAST_SPLITDISTANCE               (0xBC, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_LAST_RESTDISTANCE                (0xBD, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_TARGETPACETIME                   (0xBE, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_STROKESTATE                      (0xBF, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_STROKERATESTATE                  (0xC0, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_DRAGFACTOR                       (0xC1, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_ENCODER_PERIOD                   (0xC2, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_HEARTRATESTATE                   (0xC3, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_SYNC_DATA                        (0xC4, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_SYNCDATAALL                      (0xC5, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_RACE_DATA                        (0xC6, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_TICK_TIME                        (0xC7, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_ERRORTYPE                        (0xC8, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_ERRORVALUE                       (0xC9, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_STATUSTYPE                       (0xCA, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_STATUSVALUE                      (0xCB, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_EPMSTATUS                        (0xCC, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_DISPLAYUPDATETIME                (0xCD, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_SYNCFRACTIONALTIME               (0xCE, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_RESTTIME                         (0xCF, {"buffer": FrameFieldType.VAR_BUFF});
+  final int id;
+  final Map<String, FrameFieldType>fields;
+  const CSAFE_PROP_SHORT_GET_DATA_CMDS(this.id, this.fields);
+}
 
 /// C2 Proprietary Long Get Data Commands
 /// Page: 62
 ///
 enum CSAFE_PROP_LONG_GET_DATA_CMDS {
-  CSAFE_PM_GET_MEMORY                (0x68, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_LOGCARD_MEMORY        (0x69, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_INTERNALLOGMEMORY     (0x6A, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_FORCEPLOTDATA         (0x6B, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_HEARTBEATDATA         (0x6C, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_UI_EVENTS             (0x6D, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_STROKESTATS           (0x6E, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_DIAGLOG_RECORD_NUM    (0x70, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_DIAGLOG_RECORD        (0x71, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_GET_CURRENT_WORKOUT_HASH  (0x72, {"buffer": FrameFieldType.VAR_BUFF});
+  CSAFE_PM_GET_MEMORY                           (0x68, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_LOGCARD_MEMORY                   (0x69, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_INTERNALLOGMEMORY                (0x6A, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_FORCEPLOTDATA                    (0x6B, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_HEARTBEATDATA                    (0x6C, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_UI_EVENTS                        (0x6D, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_STROKESTATS                      (0x6E, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_DIAGLOG_RECORD_NUM               (0x70, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_DIAGLOG_RECORD                   (0x71, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_GET_CURRENT_WORKOUT_HASH             (0x72, {"buffer": FrameFieldType.VAR_BUFF});
   final int id;
   final Map<String, FrameFieldType>fields;
   const CSAFE_PROP_LONG_GET_DATA_CMDS(this.id, this.fields);
@@ -292,6 +358,7 @@ enum CSAFE_PROP_LONG_GET_DATA_CMDS {
 /// Page: 65
 ///
 
+
 /// C2 Proprietary Short Set Configuration Commands
 /// Page: 65
 ///
@@ -299,7 +366,58 @@ enum CSAFE_PROP_LONG_GET_DATA_CMDS {
 /// C2 Proprietary Long Set Configuration Commands
 /// Page: 65
 ///
-
+enum CSAFE_PROP_LONG_SET_CONFIG_CMDS {
+  CSAFE_PM_SET_BAUDRATE                        (0x00, {"CSAFE_PM_SET_BAUDRATE                  ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_WORKOUTTYPE                     (0x01, {"CSAFE_PM_SET_WORKOUTTYPE               ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_STARTTYPE                       (0x02, {"CSAFE_PM_SET_STARTTYPE                 ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_WORKOUTDURATI                   (0x03, {"CSAFE_PM_SET_WORKOUTDURATI             ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_RESTDURATION                    (0x04, {"CSAFE_PM_SET_RESTDURATION              ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_SPLITDURATION                   (0x05, {"CSAFE_PM_SET_SPLITDURATION             ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_TARGETPACETIME                  (0x06, {"CSAFE_PM_SET_TARGETPACETIME            ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_INTERVALIDENTIFIER              (0x07, {"CSAFE_PM_SET_INTERVALIDENTIFIER        ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_OPERATIONALSTATE                (0x08, {"CSAFE_PM_SET_OPERATIONALSTATE          ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_RACETYPE                        (0x09, {"CSAFE_PM_SET_RACETYPE                  ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_WARMUPDURATION                  (0x0A, {"CSAFE_PM_SET_WARMUPDURATION            ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_RACELANESETUP                   (0x0B, {"CSAFE_PM_SET_RACELANESETUP             ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_RACELANEVERIFY                  (0x0C, {"CSAFE_PM_SET_RACELANEVERIFY            ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_RACESTARTPARAMS                 (0x0D, {"CSAFE_PM_SET_RACESTARTPARAMS           ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_ERGSLAVEDISCOVERYREQUEST        (0x0E, {"CSAFE_PM_SET_ERGSLAVEDISCOVERYREQUEST  ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_BOATNUMBER                      (0x0F, {"CSAFE_PM_SET_BOATNUMBER                ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_ERGNUMBER                       (0x10, {"CSAFE_PM_SET_ERGNUMBER                 ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_COMMUNICATIONSTATE              (0x11, {"CSAFE_PM_SET_COMMUNICATIONSTATE        ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_CMDUPLIST                       (0x12, {"CSAFE_PM_SET_CMDUPLIST                 ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_SCREENSTATE                     (0x13, {"CSAFE_PM_SET_SCREENSTATE               ": FrameFieldType.KEY}),
+  CSAFE_PM_CONFIGURE_WORKOUT                   (0x14, {"CSAFE_PM_CONFIGURE_WORKOUT             ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_TARGETAVGWATTS                  (0x15, {"CSAFE_PM_SET_TARGETAVGWATTS            ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_TARGETCALSPERHR                 (0x16, {"CSAFE_PM_SET_TARGETCALSPERHR           ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_INTERVALTYPE                    (0x17, {"CSAFE_PM_SET_INTERVALTYPE              ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_WORKOUTINTERVALCOUNT            (0x18, {"CSAFE_PM_SET_WORKOUTINTERVALCOUNT      ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_DISPLAYUPDATERATE               (0x19, {"CSAFE_PM_SET_DISPLAYUPDATERATE         ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_AUTHENPASSWORD                  (0x1A, {"CSAFE_PM_SET_AUTHENPASSWORD            ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_TICKTIME                        (0x1B, {"CSAFE_PM_SET_TICKTIME                  ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_TICKTIMEOFFSET                  (0x1C, {"CSAFE_PM_SET_TICKTIMEOFFSET            ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_RACEDATASAMPLETICKS             (0x1D, {"CSAFE_PM_SET_RACEDATASAMPLETICKS       ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_RACEOPERATIONTYPE               (0x1E, {"CSAFE_PM_SET_RACEOPERATIONTYPE         ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_RACESTATUSDISPLAYTICKS          (0x1F, {"CSAFE_PM_SET_RACESTATUSDISPLAYTICKS    ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_RACESTATUSWARNINGTICKS          (0x20, {"CSAFE_PM_SET_RACESTATUSWARNINGTICKS    ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_RACEIDLEMODEPARMS               (0x22, {"CSAFE_PM_SET_RACEIDLEMODEPARMS         ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_DATETIME                        (0x23, {"CSAFE_PM_SET_DATETIME                  ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_LANGUAGETYPE                    (0x24, {"CSAFE_PM_SET_LANGUAGETYPE              ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_WIFICONFIG                      (0x25, {"CSAFE_PM_SET_WIFICONFIG                ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_CPUTICKRATE                     (0x26, {"CSAFE_PM_SET_CPUTICKRATE               ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_LOGCARDUSER                     (0x27, {"CSAFE_PM_SET_LOGCARDUSER               ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_SCREENERRORMODE                 (0x28, {"CSAFE_PM_SET_SCREENERRORMODE           ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_CABLETEST                       (0x29, {"CSAFE_PM_SET_CABLETEST                 ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_USER_ID                         (0x2A, {"CSAFE_PM_SET_USER_ID                   ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_USER_PROFILE                    (0x2B, {"CSAFE_PM_SET_USER_PROFILE              ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_HRM                             (0x2C, {"CSAFE_PM_SET_HRM                       ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_RACESTARTINGPHYSCALADDRESS      (0x21, {"CSAFE_PM_SET_RACESTARTINGPHYSCALADDRESS": FrameFieldType.KEY}),
+  CSAFE_PM_SET_HRBELT_INFO                     (0x2D, {"CSAFE_PM_SET_HRBELT_INFO               ": FrameFieldType.KEY}),
+  CSAFE_PM_SET_SENSOR_CHANNEL                  (0x2F, {"CSAFE_PM_SET_SENSOR_CHANNEL            ": FrameFieldType.KEY});
+  final int id;
+  final Map<String, FrameFieldType>fields;
+  const CSAFE_PROP_LONG_SET_CONFIG_CMDS(this.id, this.fields);
+}
 
 /// C2 Proprietary Long Set Data Commands
 /// Page: 69

@@ -78,8 +78,7 @@ class CsafeFrameProcessor {
 
     //parse frame contents
     CsafeFrameProcessorContext context = CsafeFrameProcessorContext();
-    for (int j = i; j < data.length - 2; j++) {
-      if (data[j] == CSAFE_FRAME_END_BYTE) break;
+    for (int j = i; j < data.length - 1; j++) {
       //print("#$j:value=${data[j].toRadixString(16).padLeft(2, '0')}");
       int v = data[j];
       if (_responseParser.containsKey(v)) {
@@ -126,6 +125,17 @@ class CsafeFrameWrapperProcessor extends CsafeFrameContentBaseProcessor {
         in CSAFE_PROP_SHORT_GET_CONF_CMDS.values) {
       v.putIfAbsent(e.id, () => CsafeFrameContentProcessor(e.id, e.fields));
     }
+
+    for (CSAFE_PROP_LONG_SET_CONFIG_CMDS e
+    in CSAFE_PROP_LONG_SET_CONFIG_CMDS.values) {
+      v.putIfAbsent(e.id, () => CsafeFrameContentProcessor(e.id, e.fields));
+    }
+
+    for (CSAFE_PROP_LONG_GET_CONF_CMDS e
+    in CSAFE_PROP_LONG_GET_CONF_CMDS.values) {
+      v.putIfAbsent(e.id, () => CsafeFrameContentProcessor(e.id, e.fields));
+    }
+
     return v;
   }
 
@@ -135,7 +145,8 @@ class CsafeFrameWrapperProcessor extends CsafeFrameContentBaseProcessor {
     assert(cmd == this.cmd);
     int length = data[start + 1];
     int idx = start + 2;
-    for (; idx < length; idx++) {
+    int end = idx + length;
+    for (; idx < end; idx++) {
       int v = data[idx];
       if (_responseParser.containsKey(v)) {
         idx = _responseParser[v]!.process(context, data, idx);
@@ -177,6 +188,8 @@ class CsafeFrameContentProcessor extends CsafeFrameContentBaseProcessor {
         case FrameFieldType.VAR_BUFF:
           context.result.putIfAbsent(key, () => DataConvUtils.intSubArrayToHex(data, pos, length));
           pos = pos + length;
+        case FrameFieldType.KEY:
+          context.result.putIfAbsent('0x${data[pos].toRadixString(16).padLeft(2, '0')}', () => key.trim());
         default:
       }
       // @formatter:on
