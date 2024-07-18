@@ -357,11 +357,34 @@ enum CSAFE_PROP_LONG_GET_DATA_CMDS {
 /// C2 Proprietary Short Set Configuration Commands
 /// Page: 65
 ///
+enum CSAFE_PROP_SHORT_SET_CONFIG_CMDS {
+  CSAFE_PM_SET_RESET_ALL                        (0xE0, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_RESET_ERG_NUMBER                 (0xE1, {"buffer": FrameFieldType.VAR_BUFF});
 
+  final int id;
+  final Map<String, FrameFieldType>fields;
+  const CSAFE_PROP_SHORT_SET_CONFIG_CMDS(this.id, this.fields);
+}
 
 /// C2 Proprietary Short Set Configuration Commands
 /// Page: 65
 ///
+enum CSAFE_PROP_SHORT_SET_DATA_CMDS {
+  CSAFE_PM_SET_SYNC_DISTANCE                    (0xD0, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_SYNC_STROKE_PACE                 (0xD1, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_SYNC_AVG_HEARTRATE               (0xD2, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_SYNC_TIME                        (0xD3, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_SYNC_SPLIT_DATA                  (0xD4, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_SYNC_ENCODER_PERIOD              (0xD5, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_SYNC_VERSION_INFO                (0xD6, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_SYNC_RACETICKTIME                (0xD7, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_SYNC_DATAALL                     (0xD8, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_SYNC_ROWINGACTIVE_TIME           (0xD9, {"buffer": FrameFieldType.VAR_BUFF});
+
+  final int id;
+  final Map<String, FrameFieldType>fields;
+  const CSAFE_PROP_SHORT_SET_DATA_CMDS(this.id, this.fields);
+}
 
 /// C2 Proprietary Long Set Configuration Commands
 /// Page: 65
@@ -422,8 +445,26 @@ enum CSAFE_PROP_LONG_SET_CONFIG_CMDS {
 /// C2 Proprietary Long Set Data Commands
 /// Page: 69
 ///
-
-
+enum CSAFE_PROP_LONG_SET_DATA_CMDS {
+  CSAFE_PM_SET_TEAM_DISTANCE                   (0x30, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_TEAM_FINISH_TIME                (0x31, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_RACEPARTICIPANT                 (0x32, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_RACESTATUS                      (0x33, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_LOGCARD_MEMORY                  (0x34, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_DISPLAYSTRING                   (0x35, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_DISPLAYBITMAP                   (0x36, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_LOCALRACEPARTICIPANT            (0x37, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_GAMEPARAMS                      (0x38, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_EXTENDED_HRBELT_INFO            (0x39, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_EXTENDED_HRM                    (0x3A, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_LEDBACKLIGHT                    (0x3B, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_DIAGLOG_RECORD_ARCHIVE          (0x3C, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_WIRELESS_CHANNEL_CONFIG         (0x3D, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_PM_SET_RACECONTROLPARAMS               (0x3E, {"buffer": FrameFieldType.VAR_BUFF});
+  final int id;
+  final Map<String, FrameFieldType>fields;
+  const CSAFE_PROP_LONG_SET_DATA_CMDS(this.id, this.fields);
+}
 
 const Map<int, String>STATE_MACHINE_STATE = {
   0x00: "Error",

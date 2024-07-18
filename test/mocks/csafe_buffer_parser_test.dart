@@ -22,15 +22,8 @@ void main() {
       "f1:81:76:05:01:03:05:14:13:f3:02:f2",
       "f0:00:fd:89:7e:43:6a:41:40:95:03:00:10:19:b5:73:69:30:76:16:27:00:af:00:06:9c:be:96:00:00:00:00:f9:00:00:00:64:18:81:00:64:00:00:00:00:00:00:00:06:00:00:00:00:38:47:46:50:2f:e0:00:f9:00:18:8e:00:00:ff:00:00:00:00:00:00:d5:f2",
       "f0:00:fd:81:7e:09:85:07:0a:25:01:06:07:07:e8:b4:f2",
-      //
       "f0:00:fd:81:7e:09:85:07:0a:25:01:06:07:07:e8:b4:f2",
-      "f1:91:91:f2",
-      "f10101f2",
-      "f18181f2",
       "f1011a001bf2",
-      "f18181f2",
-      "f10505f2",
-      "f1:01:05:80:02:00:01:f9:f2",
       "f0:fd:00:76:09:22:07:0a:26:01:06:07:07:e8:99:f2",
       "f0:00:fd:81:7e:09:85:07:0a:25:01:06:07:07:e8:b4:f2"
     ];
@@ -38,6 +31,7 @@ void main() {
       for (int i = 0; i < csafeList.length; i++) {
         try {
           CsafeFrameProcessor parser = CsafeFrameProcessor();
+          print(csafeList[i]);
           String input = csafeList[i].stripCommnad().replaceAll(" ", "");
           IntList response =
               DataConvUtils.hexStringToIntArray(input);
