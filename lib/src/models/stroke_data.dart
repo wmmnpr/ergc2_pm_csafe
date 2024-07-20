@@ -56,6 +56,7 @@ class StrokeData extends PmData<StrokeData> {
     };
   }
 
+  @override
   StrokeData from(List<int> intList) {
     StrokeData strokeData = this;
     // @formatter:off

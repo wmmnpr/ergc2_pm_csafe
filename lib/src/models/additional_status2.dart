@@ -54,6 +54,7 @@ class AdditionalStatus2 extends PmData<AdditionalStatus2> {
     };
   }
 
+  @override
   AdditionalStatus2 from(List<int> intList) {
     AdditionalStatus2 additionalStatus2 = this;
     // @formatter:off

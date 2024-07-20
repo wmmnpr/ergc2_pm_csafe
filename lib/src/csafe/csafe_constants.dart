@@ -73,7 +73,7 @@ const int CSAFE_SETPMDATA_CMD_SHORT_MIN     = 0xD0;
 const int CSAFE_SETPMDATA_CMD_LONG_MIN      = 0x30;
 
 enum FrameFieldType {
-  CHAR, INT, INT2, INT3, INT4, FLOAT, VAR_BUFF, KEY;
+  CHAR, INT, INT2, INT3, INT4, FLOAT, VAR_BUFF;
 }
 
 /// Public Short Commands
@@ -358,8 +358,8 @@ enum CSAFE_PROP_LONG_GET_DATA_CMDS {
 /// Page: 65
 ///
 enum CSAFE_PROP_SHORT_SET_CONFIG_CMDS {
-  CSAFE_PM_SET_RESET_ALL                        (0xE0, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_SET_RESET_ERG_NUMBER                 (0xE1, {"buffer": FrameFieldType.VAR_BUFF});
+  CSAFE_PM_SET_RESET_ALL                       (0xE0, {}),
+  CSAFE_PM_SET_RESET_ERG_NUMBER                (0xE1, {});
 
   final int id;
   final Map<String, FrameFieldType>fields;
@@ -370,16 +370,16 @@ enum CSAFE_PROP_SHORT_SET_CONFIG_CMDS {
 /// Page: 65
 ///
 enum CSAFE_PROP_SHORT_SET_DATA_CMDS {
-  CSAFE_PM_SET_SYNC_DISTANCE                    (0xD0, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_SET_SYNC_STROKE_PACE                 (0xD1, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_SET_SYNC_AVG_HEARTRATE               (0xD2, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_SET_SYNC_TIME                        (0xD3, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_SET_SYNC_SPLIT_DATA                  (0xD4, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_SET_SYNC_ENCODER_PERIOD              (0xD5, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_SET_SYNC_VERSION_INFO                (0xD6, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_SET_SYNC_RACETICKTIME                (0xD7, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_SET_SYNC_DATAALL                     (0xD8, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_PM_SET_SYNC_ROWINGACTIVE_TIME           (0xD9, {"buffer": FrameFieldType.VAR_BUFF});
+  CSAFE_PM_SET_SYNC_DISTANCE                    (0xD0, {}),
+  CSAFE_PM_SET_SYNC_STROKE_PACE                 (0xD1, {}),
+  CSAFE_PM_SET_SYNC_AVG_HEARTRATE               (0xD2, {}),
+  CSAFE_PM_SET_SYNC_TIME                        (0xD3, {}),
+  CSAFE_PM_SET_SYNC_SPLIT_DATA                  (0xD4, {}),
+  CSAFE_PM_SET_SYNC_ENCODER_PERIOD              (0xD5, {}),
+  CSAFE_PM_SET_SYNC_VERSION_INFO                (0xD6, {}),
+  CSAFE_PM_SET_SYNC_RACETICKTIME                (0xD7, {}),
+  CSAFE_PM_SET_SYNC_DATAALL                     (0xD8, {}),
+  CSAFE_PM_SET_SYNC_ROWINGACTIVE_TIME           (0xD9, {});
 
   final int id;
   final Map<String, FrameFieldType>fields;
@@ -390,53 +390,53 @@ enum CSAFE_PROP_SHORT_SET_DATA_CMDS {
 /// Page: 65
 ///
 enum CSAFE_PROP_LONG_SET_CONFIG_CMDS {
-  CSAFE_PM_SET_BAUDRATE                        (0x00, {"CSAFE_PM_SET_BAUDRATE                  ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_WORKOUTTYPE                     (0x01, {"CSAFE_PM_SET_WORKOUTTYPE               ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_STARTTYPE                       (0x02, {"CSAFE_PM_SET_STARTTYPE                 ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_WORKOUTDURATI                   (0x03, {"CSAFE_PM_SET_WORKOUTDURATI             ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_RESTDURATION                    (0x04, {"CSAFE_PM_SET_RESTDURATION              ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_SPLITDURATION                   (0x05, {"CSAFE_PM_SET_SPLITDURATION             ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_TARGETPACETIME                  (0x06, {"CSAFE_PM_SET_TARGETPACETIME            ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_INTERVALIDENTIFIER              (0x07, {"CSAFE_PM_SET_INTERVALIDENTIFIER        ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_OPERATIONALSTATE                (0x08, {"CSAFE_PM_SET_OPERATIONALSTATE          ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_RACETYPE                        (0x09, {"CSAFE_PM_SET_RACETYPE                  ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_WARMUPDURATION                  (0x0A, {"CSAFE_PM_SET_WARMUPDURATION            ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_RACELANESETUP                   (0x0B, {"CSAFE_PM_SET_RACELANESETUP             ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_RACELANEVERIFY                  (0x0C, {"CSAFE_PM_SET_RACELANEVERIFY            ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_RACESTARTPARAMS                 (0x0D, {"CSAFE_PM_SET_RACESTARTPARAMS           ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_ERGSLAVEDISCOVERYREQUEST        (0x0E, {"CSAFE_PM_SET_ERGSLAVEDISCOVERYREQUEST  ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_BOATNUMBER                      (0x0F, {"CSAFE_PM_SET_BOATNUMBER                ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_ERGNUMBER                       (0x10, {"CSAFE_PM_SET_ERGNUMBER                 ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_COMMUNICATIONSTATE              (0x11, {"CSAFE_PM_SET_COMMUNICATIONSTATE        ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_CMDUPLIST                       (0x12, {"CSAFE_PM_SET_CMDUPLIST                 ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_SCREENSTATE                     (0x13, {"CSAFE_PM_SET_SCREENSTATE               ": FrameFieldType.KEY}),
-  CSAFE_PM_CONFIGURE_WORKOUT                   (0x14, {"CSAFE_PM_CONFIGURE_WORKOUT             ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_TARGETAVGWATTS                  (0x15, {"CSAFE_PM_SET_TARGETAVGWATTS            ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_TARGETCALSPERHR                 (0x16, {"CSAFE_PM_SET_TARGETCALSPERHR           ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_INTERVALTYPE                    (0x17, {"CSAFE_PM_SET_INTERVALTYPE              ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_WORKOUTINTERVALCOUNT            (0x18, {"CSAFE_PM_SET_WORKOUTINTERVALCOUNT      ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_DISPLAYUPDATERATE               (0x19, {"CSAFE_PM_SET_DISPLAYUPDATERATE         ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_AUTHENPASSWORD                  (0x1A, {"CSAFE_PM_SET_AUTHENPASSWORD            ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_TICKTIME                        (0x1B, {"CSAFE_PM_SET_TICKTIME                  ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_TICKTIMEOFFSET                  (0x1C, {"CSAFE_PM_SET_TICKTIMEOFFSET            ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_RACEDATASAMPLETICKS             (0x1D, {"CSAFE_PM_SET_RACEDATASAMPLETICKS       ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_RACEOPERATIONTYPE               (0x1E, {"CSAFE_PM_SET_RACEOPERATIONTYPE         ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_RACESTATUSDISPLAYTICKS          (0x1F, {"CSAFE_PM_SET_RACESTATUSDISPLAYTICKS    ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_RACESTATUSWARNINGTICKS          (0x20, {"CSAFE_PM_SET_RACESTATUSWARNINGTICKS    ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_RACEIDLEMODEPARMS               (0x22, {"CSAFE_PM_SET_RACEIDLEMODEPARMS         ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_DATETIME                        (0x23, {"CSAFE_PM_SET_DATETIME                  ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_LANGUAGETYPE                    (0x24, {"CSAFE_PM_SET_LANGUAGETYPE              ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_WIFICONFIG                      (0x25, {"CSAFE_PM_SET_WIFICONFIG                ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_CPUTICKRATE                     (0x26, {"CSAFE_PM_SET_CPUTICKRATE               ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_LOGCARDUSER                     (0x27, {"CSAFE_PM_SET_LOGCARDUSER               ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_SCREENERRORMODE                 (0x28, {"CSAFE_PM_SET_SCREENERRORMODE           ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_CABLETEST                       (0x29, {"CSAFE_PM_SET_CABLETEST                 ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_USER_ID                         (0x2A, {"CSAFE_PM_SET_USER_ID                   ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_USER_PROFILE                    (0x2B, {"CSAFE_PM_SET_USER_PROFILE              ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_HRM                             (0x2C, {"CSAFE_PM_SET_HRM                       ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_RACESTARTINGPHYSCALADDRESS      (0x21, {"CSAFE_PM_SET_RACESTARTINGPHYSCALADDRESS": FrameFieldType.KEY}),
-  CSAFE_PM_SET_HRBELT_INFO                     (0x2D, {"CSAFE_PM_SET_HRBELT_INFO               ": FrameFieldType.KEY}),
-  CSAFE_PM_SET_SENSOR_CHANNEL                  (0x2F, {"CSAFE_PM_SET_SENSOR_CHANNEL            ": FrameFieldType.KEY});
+  CSAFE_PM_SET_BAUDRATE                        (0x00, {}),
+  CSAFE_PM_SET_WORKOUTTYPE                     (0x01, {}),
+  CSAFE_PM_SET_STARTTYPE                       (0x02, {}),
+  CSAFE_PM_SET_WORKOUTDURATION                 (0x03, {}),
+  CSAFE_PM_SET_RESTDURATION                    (0x04, {}),
+  CSAFE_PM_SET_SPLITDURATION                   (0x05, {}),
+  CSAFE_PM_SET_TARGETPACETIME                  (0x06, {}),
+  CSAFE_PM_SET_INTERVALIDENTIFIER              (0x07, {}),
+  CSAFE_PM_SET_OPERATIONALSTATE                (0x08, {}),
+  CSAFE_PM_SET_RACETYPE                        (0x09, {}),
+  CSAFE_PM_SET_WARMUPDURATION                  (0x0A, {}),
+  CSAFE_PM_SET_RACELANESETUP                   (0x0B, {}),
+  CSAFE_PM_SET_RACELANEVERIFY                  (0x0C, {}),
+  CSAFE_PM_SET_RACESTARTPARAMS                 (0x0D, {}),
+  CSAFE_PM_SET_ERGSLAVEDISCOVERYREQUEST        (0x0E, {}),
+  CSAFE_PM_SET_BOATNUMBER                      (0x0F, {}),
+  CSAFE_PM_SET_ERGNUMBER                       (0x10, {}),
+  CSAFE_PM_SET_COMMUNICATIONSTATE              (0x11, {}),
+  CSAFE_PM_SET_CMDUPLIST                       (0x12, {}),
+  CSAFE_PM_SET_SCREENSTATE                     (0x13, {}),
+  CSAFE_PM_CONFIGURE_WORKOUT                   (0x14, {}),
+  CSAFE_PM_SET_TARGETAVGWATTS                  (0x15, {}),
+  CSAFE_PM_SET_TARGETCALSPERHR                 (0x16, {}),
+  CSAFE_PM_SET_INTERVALTYPE                    (0x17, {}),
+  CSAFE_PM_SET_WORKOUTINTERVALCOUNT            (0x18, {}),
+  CSAFE_PM_SET_DISPLAYUPDATERATE               (0x19, {}),
+  CSAFE_PM_SET_AUTHENPASSWORD                  (0x1A, {}),
+  CSAFE_PM_SET_TICKTIME                        (0x1B, {}),
+  CSAFE_PM_SET_TICKTIMEOFFSET                  (0x1C, {}),
+  CSAFE_PM_SET_RACEDATASAMPLETICKS             (0x1D, {}),
+  CSAFE_PM_SET_RACEOPERATIONTYPE               (0x1E, {}),
+  CSAFE_PM_SET_RACESTATUSDISPLAYTICKS          (0x1F, {}),
+  CSAFE_PM_SET_RACESTATUSWARNINGTICKS          (0x20, {}),
+  CSAFE_PM_SET_RACEIDLEMODEPARMS               (0x22, {}),
+  CSAFE_PM_SET_DATETIME                        (0x23, {}),
+  CSAFE_PM_SET_LANGUAGETYPE                    (0x24, {}),
+  CSAFE_PM_SET_WIFICONFIG                      (0x25, {}),
+  CSAFE_PM_SET_CPUTICKRATE                     (0x26, {}),
+  CSAFE_PM_SET_LOGCARDUSER                     (0x27, {}),
+  CSAFE_PM_SET_SCREENERRORMODE                 (0x28, {}),
+  CSAFE_PM_SET_CABLETEST                       (0x29, {}),
+  CSAFE_PM_SET_USER_ID                         (0x2A, {}),
+  CSAFE_PM_SET_USER_PROFILE                    (0x2B, {}),
+  CSAFE_PM_SET_HRM                             (0x2C, {}),
+  CSAFE_PM_SET_RACESTARTINGPHYSCALADDRESS      (0x21, {}),
+  CSAFE_PM_SET_HRBELT_INFO                     (0x2D, {}),
+  CSAFE_PM_SET_SENSOR_CHANNEL                  (0x2F, {});
   final int id;
   final Map<String, FrameFieldType>fields;
   const CSAFE_PROP_LONG_SET_CONFIG_CMDS(this.id, this.fields);

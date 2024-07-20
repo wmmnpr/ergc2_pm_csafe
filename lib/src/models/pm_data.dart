@@ -19,7 +19,7 @@ class CsafeBuffer extends PmData<CsafeBuffer> {
 
   @override
   CsafeBuffer from(List<int> intList) {
-    this.buffer = intList;
+    buffer = intList;
     return this;
   }
 
