@@ -27,23 +27,23 @@ const int CSAFE_DESTINATION_ADDR_BROADCAST  = 0xFF;
 const int CSAFE_DESTINATION_ADDR_ERG_DEFAULT= 0xFD;
 
 const int CSAFE_FRAME_MAXSIZE               = 96;
-const int CSAFE_INTERFRAMEGAP_MIN				    = 50;
+const int CSAFE_INTERFRAMEGAP_MIN           = 50;
 const int CSAFE_CMDUPLIST_MAXSIZE           = 10;
 const int CSAFE_MEMORY_BLOCKSIZE            = 64;
 const int CSAFE_FORCEPLOT_BLOCKSIZE         = 32;
-const int CSAFE_HEARTBEAT_BLOCKSIZE			    = 32;
+const int CSAFE_HEARTBEAT_BLOCKSIZE         = 32;
 
 /* Manufacturer Info */
 const int CSAFE_MANUFACTURE_ID              = 22;
 const int CSAFE_CLASS_ID                    = 2;
 
-const int CSAFE_MODEL_NUM						        = 5;
-const int CSAFE_UNITS_TYPE				          = 0;
-const int CSAFE_SERIALNUM_DIGITS		        = 9;
+const int CSAFE_MODEL_NUM                   = 5;
+const int CSAFE_UNITS_TYPE                  = 0;
+const int CSAFE_SERIALNUM_DIGITS            = 9;
 
-const int CSAFE_HMS_FORMAT_CNT				      = 3;
-const int CSAFE_YMD_FORMAT_CNT				      = 3;
-const int CSAFE_ERRORCODE_FORMAT_CNT	      = 3;
+const int CSAFE_HMS_FORMAT_CNT              = 3;
+const int CSAFE_YMD_FORMAT_CNT              = 3;
+const int CSAFE_ERRORCODE_FORMAT_CNT        = 3;
 
 /* Command space partitioning for standard commands */
 const int CSAFE_CTRL_CMD_LONG_MIN           = 0x01;
