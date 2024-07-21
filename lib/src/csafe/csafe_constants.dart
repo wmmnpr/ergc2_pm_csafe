@@ -481,13 +481,26 @@ enum STATE_MACHINE_STATE {
   static fromInt(int v) => STATE_MACHINE_STATE.values.firstWhere((e) => (e.id == (v & 0x0F)));
 }
 
-const Map<int, String>PREVIOUS_FRAME_STATUS = {
-  0x00: "Ok",
-  0x10: "Reject",
-  0x20: "Bad",
-  0x30: "Not ready"
-};
+enum PREVIOUS_FRAME_STATUS {
+  Ok             (0x00, "Ok"),
+  Reject         (0x00, "Reject"),
+  Bad            (0x00, "Bad"),
+  NotReady       (0x00, "Not Ready");
+  final int id;
+  final String text;
+  const PREVIOUS_FRAME_STATUS(this.id, this.text);
+  static fromInt(int v) => PREVIOUS_FRAME_STATUS.values.firstWhere((e) => (e.id == (v & 0x30)));
+}
 
+enum ADDRESS_TEXT {
+  Master   (0x00, "Master"),
+  Slave    (0x01, "Slave");
+
+  final int id;
+  final String text;
+  const ADDRESS_TEXT(this.id, this.text);
+  static fromInt(int v) => v == 0x00 ? Master : Slave;
+}
 
 enum RACE_TYPE {
   RACETYPE_FIXEDDIST_SINGLEERG                                   (00),

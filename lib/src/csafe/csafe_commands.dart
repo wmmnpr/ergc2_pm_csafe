@@ -38,10 +38,6 @@ class CsafeFrameProcessor {
     return v;
   }
 
-  static _addressText(int v) => v == 0x00 ? "Master" : "Slave";
-
-  static _previousFrameStatus2text(int v) => PREVIOUS_FRAME_STATUS[(v & 0x30)];
-
   static IntList _unstuff(IntList inputList) {
     IntList data = [];
     for (int i = 0; i < inputList.length; i++) {
@@ -63,10 +59,11 @@ class CsafeFrameProcessor {
       case CSAFE_EXT_FRAME_START_BYTE:
         response["checksum"] =
             DataConvUtils.csafe_checksum(data, 3, data.length - 1);
-        response["source"] = _addressText(data[++i]);
-        response["target"] = _addressText(data[++i]);
+        response["source"] = ADDRESS_TEXT.fromInt(data[++i]).text;
+        response["target"] = ADDRESS_TEXT.fromInt(data[++i]).text;
         response["state"] = STATE_MACHINE_STATE.fromInt(data[++i])!.text;
-        response["previousFrameStatus"] = _previousFrameStatus2text(data[i]);
+        response["previousFrameStatus"] =
+            PREVIOUS_FRAME_STATUS.fromInt(data[i]).text;
         i = 4;
       case CSAFE_FRAME_START_BYTE:
         response["checksum"] =
@@ -95,7 +92,8 @@ class CsafeFrameProcessor {
     return response;
   }
 
-  Map<String, Object> deserializePublicFrame(int responseTo, IntList inputList) {
+  Map<String, Object> deserializePublicFrame(
+      int responseTo, IntList inputList) {
     IntList data = _unstuff(inputList);
     Map<String, Object> response = {};
     int i = 0;
