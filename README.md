@@ -20,12 +20,11 @@ const like = 'sample';
 ```
 
 ## Additional information
-
-
-
-
-
-
+https://protobuf.dev/getting-started/darttutorial/
+https://github.com/google/protobuf.dart/tree/master/protoc_plugin#how-to-build
+brew install protobuf
+export PATH=$PATH:/Users/william/.pub-cache/bin
+protoc address.proto --dart_out=./
 
 
 

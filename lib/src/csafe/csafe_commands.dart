@@ -1,4 +1,5 @@
 import '../../ergc2_pm_csafe.dart';
+import 'c2proplongsetconfigcommands.dart';
 import 'csafe_constants.dart';
 
 extension IntExtensions on int {

@@ -15,6 +15,7 @@ void main() {
     test('Csafe conversion', () {
       // @formatter:off
     List<String> csafeList = [
+      "F1:09:1A:03:BF:01:04:AA:F2",
       "f1:81:76:1A:18:01:17:03:04:06:14:18:17:03:04:06:14:18:17:03:04:06:14:18:17:03:04:06:14:13:ff:f2",
       //"f0:fd:00:76:09:22:07:0a:26:01:06:07:07:e8:99:f2", command
       "f18193010013f2",
@@ -36,8 +37,7 @@ void main() {
           CsafeFrameProcessor parser = CsafeFrameProcessor();
           print(csafeList[i]);
           String input = csafeList[i].stripCommnad().replaceAll(" ", "");
-          IntList response =
-              DataConvUtils.hexStringToIntArray(input);
+          IntList response = DataConvUtils.hexStringToIntArray(input);
           Map<String, Object> mappedResponse =
               parser.parseResponseFrame(response);
           print(mappedResponse.toString());
