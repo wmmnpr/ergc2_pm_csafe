@@ -48,7 +48,7 @@ enum DURATION_UNITS {
   // @formatter:on
 }
 
-enum SCREEN_VALUE {
+enum SCREEN_VALUE_WORKOUT_TYPE {
   // @formatter:off
   SCREENVALUEWORKOUT_NONE                              (0x00),
   SCREENVALUEWORKOUT_PREPARETOROWWORKOUT               (0x01),
@@ -101,7 +101,7 @@ enum SCREEN_VALUE {
   // @formatter:on
   final int id;
 
-  const SCREEN_VALUE(this.id);
+  const SCREEN_VALUE_WORKOUT_TYPE(this.id);
 }
 
 abstract class CSafeCommand {
@@ -217,14 +217,14 @@ class CSafeConfigureWorkout extends CSafeCommand {
 
 class CSafeSetScreenState extends CSafeCommand {
   SCREEN_TYPE screenType;
-  SCREEN_VALUE screenValue;
+  SCREEN_VALUE_WORKOUT_TYPE screenValue;
 
   CSafeSetScreenState(this.screenType, this.screenValue)
       : super(CSAFE_PROP_LONG_SET_CONFIG_CMDS.CSAFE_PM_SET_SCREENSTATE);
 
   CSafeSetScreenState.build(
       {screenType = SCREEN_TYPE.SCREENTYPE_WORKOUT,
-      screenValue = SCREEN_VALUE.SCREENVALUEWORKOUT_PREPARETOROWWORKOUT})
+      screenValue = SCREEN_VALUE_WORKOUT_TYPE.SCREENVALUEWORKOUT_PREPARETOROWWORKOUT})
       : this(screenType, screenValue);
 
   @override
