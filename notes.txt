@@ -22,32 +22,93 @@ From page 76 of PM5 documentation
 7618010103030580000007D00505800000019014010113020101
 f17618010103030580000007d0050580000001901401011302010128f2 -> f18176050103051413f302f2
 
+f18080f2
+f1210302002101f2
+f11a07050580f401000068f2
+f13403c80058a7f2
+f12402000026f2
+f18585f2
+f28282f2
+f10202f2
+
+F1:01:05:80:02:00:01:F9:F2
 
 
-flutter: ignoring characteristic: ce060012-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060013-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060014-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060015-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060011-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060016-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060017-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060018-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060031-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060033-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060034-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060036-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060037-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060038-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060039-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce06003a-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce06003b-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce060080-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: ce06003d-43e5-11e4-916c-0800200c9a66
-flutter: ignoring characteristic: 2acc
-flutter: ignoring characteristic: 2ad1
+2024-06-30 16:39:31.352 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060021-43e5-11e4-916c-0800200c9a66
+flutter: INFO: 2024-06-30 16:39:31.353193: done sending any command
+flutter: INFO: 2024-06-30 16:39:59.052356: sending csafe command: f18686f2
+2024-06-30 16:39:59.052 ergpm_diagnostics[29246:14171771] [FBP-iOS] handleMethodCall: writeCharacteristic
+2024-06-30 16:39:59.163 ergpm_diagnostics[29246:14171771] [FBP-iOS] didWriteValueForCharacteristic:
+2024-06-30 16:39:59.163 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060021-43e5-11e4-916c-0800200c9a66
+2024-06-30 16:39:59.163 ergpm_diagnostics[29246:14171771] [FBP-iOS] didUpdateValueForCharacteristic:
+2024-06-30 16:39:59.163 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060022-43e5-11e4-916c-0800200c9a66
+flutter: INFO: 2024-06-30 16:40:05.886281: sending csafe command: f18787f2
+2024-06-30 16:40:05.886 ergpm_diagnostics[29246:14171771] [FBP-iOS] handleMethodCall: writeCharacteristic
+2024-06-30 16:40:06.001 ergpm_diagnostics[29246:14171771] [FBP-iOS] didWriteValueForCharacteristic:
+2024-06-30 16:40:06.001 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060021-43e5-11e4-916c-0800200c9a66
+2024-06-30 16:40:06.091 ergpm_diagnostics[29246:14171771] [FBP-iOS] didUpdateValueForCharacteristic:
+2024-06-30 16:40:06.091 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060022-43e5-11e4-916c-0800200c9a66
+flutter: INFO: 2024-06-30 16:40:08.991737: Csafe buffer -> {buffer: f19191f2}
+flutter: INFO: 2024-06-30 16:40:56.735061: sending csafe command: f1210301002201f2
+2024-06-30 16:40:56.735 ergpm_diagnostics[29246:14171771] [FBP-iOS] handleMethodCall: writeCharacteristic
+2024-06-30 16:40:56.853 ergpm_diagnostics[29246:14171771] [FBP-iOS] didWriteValueForCharacteristic:
+2024-06-30 16:40:56.853 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060021-43e5-11e4-916c-0800200c9a66
+2024-06-30 16:40:56.853 ergpm_diagnostics[29246:14171771] [FBP-iOS] didUpdateValueForCharacteristic:
+2024-06-30 16:40:56.853 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060022-43e5-11e4-916c-0800200c9a66
+flutter: INFO: 2024-06-30 16:41:08.575963: Csafe buffer -> {buffer: f10101f2}
+flutter: INFO: 2024-06-30 16:41:08.606970: sending csafe command: f11a0705058064000000f9f2
+2024-06-30 16:41:08.608 ergpm_diagnostics[29246:14171771] [FBP-iOS] handleMethodCall: writeCharacteristic
+2024-06-30 16:41:08.733 ergpm_diagnostics[29246:14171771] [FBP-iOS] didWriteValueForCharacteristic:
+2024-06-30 16:41:08.733 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060021-43e5-11e4-916c-0800200c9a66
+2024-06-30 16:41:08.822 ergpm_diagnostics[29246:14171771] [FBP-iOS] didUpdateValueForCharacteristic:
+2024-06-30 16:41:08.822 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060022-43e5-11e4-916c-0800200c9a66
+flutter: INFO: 2024-06-30 16:41:20.229238: Csafe buffer -> {buffer: f18181f2}
+flutter: INFO: 2024-06-30 16:41:20.464527: sending csafe command: f12402000026f2
+flutter: INFO: 2024-06-30 16:41:20.466154: Csafe buffer -> {buffer: f1011a001bf2}
+2024-06-30 16:41:20.466 ergpm_diagnostics[29246:14171771] [FBP-iOS] handleMethodCall: writeCharacteristic
+2024-06-30 16:41:20.613 ergpm_diagnostics[29246:14171771] [FBP-iOS] didWriteValueForCharacteristic:
+2024-06-30 16:41:20.613 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060021-43e5-11e4-916c-0800200c9a66
+2024-06-30 16:41:20.613 ergpm_diagnostics[29246:14171771] [FBP-iOS] didUpdateValueForCharacteristic:
+2024-06-30 16:41:20.613 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060022-43e5-11e4-916c-0800200c9a66
+flutter: INFO: 2024-06-30 16:41:20.619716: sending csafe command: f18585f2
+flutter: INFO: 2024-06-30 16:41:20.622518: Csafe buffer -> {buffer: f18181f2}
+2024-06-30 16:41:20.629 ergpm_diagnostics[29246:14171771] [FBP-iOS] handleMethodCall: writeCharacteristic
+2024-06-30 16:41:20.792 ergpm_diagnostics[29246:14171771] [FBP-iOS] didWriteValueForCharacteristic:
+2024-06-30 16:41:20.793 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060021-43e5-11e4-916c-0800200c9a66
+2024-06-30 16:41:20.793 ergpm_diagnostics[29246:14171771] [FBP-iOS] didUpdateValueForCharacteristic:
+2024-06-30 16:41:20.793 ergpm_diagnostics[29246:14171771] [FBP-iOS]   chr: ce060022-43e5-11e4-916c-0800200c9a66
+flutter: INFO: 2024-06-30 16:41:20.795134: Csafe buffer -> {buffer: f10505f2}
+2024-06-30 16:46:34.267 ergpm_diagnostics[29246:14171771] [FBP-iOS] didDisconnectPeripheral:
+2024-06-30 16:46:34.267 ergpm_diagnostics[29246:14171771] [FBP-iOS]   error: The specified device has disconnected from us.
+
 
 
 
 
 jq  '.[] | select(.["_source"]["layers"]["btatt"]["btatt.handle_tree"]["btatt.uuid128"] == "ce:06:00:21:43:e5:11:e4:91:6c:08:00:20:0c:9a:66")' pm5-ergdata-airplus-202406092300-full.json | jq  '.["_source"]["layers"]["btatt"]["btatt.value"]'
 
+
+
+
+short          get      config
+long           set      data
+
+short get config
+short get data
+short set config
+short set data
+
+long get config
+long get data
+long set config
+long set data
+
+
+C2 Proprietary Short Get Configuration Commands
+C2 Proprietary Long Get Configuration Commands
+C2 Proprietary Short Get Data Commands
+C2 Proprietary Long Get Data Commands
+C2 Proprietary Short Set Configuration Commands
+C2 Proprietary Short Set Data Commands
+C2 Proprietary Long Set Configuration Commands
+C2 Proprietary Long Set Data Commands

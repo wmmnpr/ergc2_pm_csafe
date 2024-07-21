@@ -12,13 +12,13 @@ void main() {
     setUp(() {
       // Additional setup goes here.
     });
-    test('Csafe conversion', () {
+    test('Csafe deserialize proprietary frame', () {
       // @formatter:off
     List<String> csafeList = [
+      "f18193010013f2",
       "F1:09:1A:03:BF:01:04:AA:F2",
       "f1:81:76:1A:18:01:17:03:04:06:14:18:17:03:04:06:14:18:17:03:04:06:14:18:17:03:04:06:14:13:ff:f2",
       //"f0:fd:00:76:09:22:07:0a:26:01:06:07:07:e8:99:f2", command
-      "f18193010013f2",
       "f0:00:fd:81:7f:09:57:07:00:00:00:00:00:00:00:a7:f2",
       "f18176050103051413f302f2",
       "f0:00:fd:81:7e:09:85:07:0a:25:01:06:07:07:e8:b4:f2",
@@ -39,13 +39,36 @@ void main() {
           String input = csafeList[i].stripCommnad().replaceAll(" ", "");
           IntList response = DataConvUtils.hexStringToIntArray(input);
           Map<String, Object> mappedResponse =
-              parser.parseResponseFrame(response);
+              parser.deserializePropFrame(response);
           print(mappedResponse.toString());
         } catch (ex) {
           print(ex);
         }
       }
     });
+  });
+
+  test('Csafe deserialize public frame', () {
+    // @formatter:off
+    List<String> csafeList = [
+      "f18787f2",
+      "f10202f2",
+      "f18585f2"
+    ];
+    // @formatter:on
+    for (int i = 0; i < csafeList.length; i++) {
+      try {
+        CsafeFrameProcessor parser = CsafeFrameProcessor();
+        print(csafeList[i]);
+        String input = csafeList[i].stripCommnad().replaceAll(" ", "");
+        IntList response = DataConvUtils.hexStringToIntArray(input);
+        Map<String, Object> mappedResponse =
+        parser.deserializePublicFrame(response);
+        print(mappedResponse.toString());
+      } catch (ex) {
+        print(ex);
+      }
+    }
   });
 
   group('CSAFE Frame processing', () {

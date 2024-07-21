@@ -20,6 +20,15 @@ class DataConvUtils {
         (data[offset + 3]);
   }
 
+  static IntList int32To4Bytes(int value) {
+    int byte0 = value ~/ 16777216;
+    int byte1 = (value - (byte0 * 16777216)) ~/ 65536;
+    int byte2 = (value - (byte0 * 16777216) - (byte1 * 65536)) ~/ 256;
+    int byte3 =
+        (value - (byte0 * 16777216) - (byte1 * 65536) - (byte2 * 256)).toInt();
+    return [byte0, byte1, byte2, byte3];
+  }
+
   static int checksum(List<int> content) {
     int checksum = 0;
     for (int i = 0; i < content.length; i++) {

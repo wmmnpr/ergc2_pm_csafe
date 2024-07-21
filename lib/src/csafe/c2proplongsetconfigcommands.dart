@@ -117,16 +117,32 @@ class CSafeCommandFrame {
 
   CSafeCommandFrame(this.commands);
 
+  static IntList _stuff(IntList inputList) {
+    IntList result = [];
+    for (int i = 0; i < inputList.length; i++) {
+      if (inputList[i] >= CSAFE_EXT_FRAME_START_BYTE &&
+          inputList[i] <= CSAFE_FRAME_STUFF_BYTE) {
+        result.add(inputList[i]);
+        result.add(inputList[i] - CSAFE_EXT_FRAME_START_BYTE);
+      } else {
+        result.add(inputList[i]);
+      }
+    }
+    return result;
+  }
+
   List<int> toBytes() {
     IntList buffer = [];
     for (var command in commands) {
       buffer.addAll(command.toBytes());
     }
-    buffer.insertAll(0, [0x76, buffer.length]);
-    int checkSum = DataConvUtils.checksum(buffer);
-    buffer.add(checkSum);
-    buffer.insert(0, 0xf1);
-    buffer.insert(buffer.length, 0xf2);
+    buffer.insertAll(
+        0, [CSAFE_PUBLIC_LONG_CMDS.CSAFE_SETPMCFG_CMD.id, buffer.length]);
+    //int checkSum = DataConvUtils.checksum(buffer);
+    //buffer.add(checkSum);
+    //buffer.insert(0, 0xf1);
+    //buffer = _stuff(buffer);
+    //buffer.insert(buffer.length, 0xf2);
     return buffer;
   }
 }
@@ -160,14 +176,9 @@ class CSafeSetWorkoutDuration extends CSafeCommand {
 
   @override
   List<int> toBytes() {
-    int byte0 = duration ~/ 16777216;
-    int byte1 = (duration - (byte0 * 16777216)) ~/ 65536;
-    int byte2 = (duration - (byte0 * 16777216) - (byte1 * 65536)) ~/ 256;
-    int byte3 =
-        (duration - (byte0 * 16777216) - (byte1 * 65536) - (byte2 * 256))
-            .toInt();
-
-    return [super.id.id, 0x05, durationUnits.id, byte0, byte1, byte2, byte3];
+    List<int> bytes = [super.id.id, 0x05, durationUnits.id];
+    bytes.addAll(DataConvUtils.int32To4Bytes(duration));
+    return bytes;
   }
 }
 
@@ -184,14 +195,9 @@ class CSafeSetSplitDuration extends CSafeCommand {
 
   @override
   List<int> toBytes() {
-    int byte0 = duration ~/ 16777216;
-    int byte1 = (duration - (byte0 * 16777216)) ~/ 65536;
-    int byte2 = (duration - (byte0 * 16777216) - (byte1 * 65536)) ~/ 256;
-    int byte3 =
-    (duration - (byte0 * 16777216) - (byte1 * 65536) - (byte2 * 256))
-        .toInt();
-
-    return [super.id.id, 0x05, durationUnits.id, byte0, byte1, byte2, byte3];
+    List<int> bytes = [super.id.id, 0x05, durationUnits.id];
+    bytes.addAll(DataConvUtils.int32To4Bytes(duration));
+    return bytes;
   }
 }
 

@@ -73,60 +73,59 @@ const int CSAFE_SETPMDATA_CMD_SHORT_MIN     = 0xD0;
 const int CSAFE_SETPMDATA_CMD_LONG_MIN      = 0x30;
 
 enum FrameFieldType {
-  CHAR, INT, INT2, INT3, INT4, FLOAT, VAR_BUFF;
+  STATE, CHAR, INT, INT2, INT3, INT4, FLOAT, VAR_BUFF;
 }
 
 /// Public Short Commands
 /// Page: 46 & 47
 enum CSAFE_PUBLIC_SHORT_CMDS {
   CSAFE_GETSTATUS_CMD                 (0x80, {"status": FrameFieldType.CHAR}),
-  CSAFE_RESET_CMD                     (0x81, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GOIDLE_CMD                    (0x82, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GOHAVEID_CMD                  (0x83, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GOINUSE_CMD                   (0x85, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GOFINISHED_CMD                (0x86, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GOREADY_CMD                   (0x87, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_BADID_CMD                     (0x88, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_RESET_CMD                     (0x81, {"state": FrameFieldType.STATE}),
+  CSAFE_GOIDLE_CMD                    (0x82, {"state": FrameFieldType.STATE}),
+  CSAFE_GOHAVEID_CMD                  (0x83, {"state": FrameFieldType.STATE}),
+  CSAFE_GOINUSE_CMD                   (0x85, {"state": FrameFieldType.STATE}),
+  CSAFE_GOFINISHED_CMD                (0x86, {"state": FrameFieldType.STATE}),
+  CSAFE_GOREADY_CMD                   (0x87, {"state": FrameFieldType.STATE}),
+  CSAFE_BADID_CMD                     (0x88, {"state": FrameFieldType.STATE}),
   CSAFE_GETVERSION_CMD                (0x91, {"mfgId": FrameFieldType.CHAR, "cId": FrameFieldType.CHAR, "model": FrameFieldType.CHAR, "hWVersion": FrameFieldType.INT2, "sWVerson": FrameFieldType.INT2}),
   CSAFE_GETID_CMD                     (0x92, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETUNITS_CMD                  (0x93, {"buffer": FrameFieldType.INT}),
+  CSAFE_GETUNITS_CMD                  (0x93, {"unitType": FrameFieldType.INT}),
   CSAFE_GETSERIAL_CMD                 (0x94, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETLIST_CMD                   (0x98, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETUTILIZATION_CMD            (0x99, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETMOTORCURRENT_CMD           (0x9A, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_GETLIST_CMD                   (0x98, {}),
+  CSAFE_GETUTILIZATION_CMD            (0x99, {}),
+  CSAFE_GETMOTORCURRENT_CMD           (0x9A, {}),
   CSAFE_GETODOMETER_CMD               (0x9B, {"buffer": FrameFieldType.VAR_BUFF}),
   CSAFE_GETERRORCODE_CMD              (0x9C, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETSERVICECODE_CMD            (0x9D, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETUSERCFG1_CMD               (0x9E, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETUSERCFG2_CMD               (0x9F, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_GETSERVICECODE_CMD            (0x9D, {}),
+  CSAFE_GETUSERCFG1_CMD               (0x9E, {}),
+  CSAFE_GETUSERCFG2_CMD               (0x9F, {}),
   CSAFE_GETTWORK_CMD                  (0xA0, {"buffer": FrameFieldType.VAR_BUFF}),
   CSAFE_GETHORIZONTAL_CMD             (0xA1, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETVERTICAL_CMD               (0xA2, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_GETVERTICAL_CMD               (0xA2, {}),
   CSAFE_GETCALORIES_CMD               (0xA3, {"buffer": FrameFieldType.VAR_BUFF}),
   CSAFE_GETPROGRAM_CMD                (0xA4, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETSPEED_CMD                  (0xA5, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_GETSPEED_CMD                  (0xA5, {}),
   CSAFE_GETPACE_CMD                   (0xA6, {"buffer": FrameFieldType.VAR_BUFF}),
   CSAFE_GETCADENCE_CMD                (0xA7, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETGRADE_CMD                  (0xA8, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETGEAR_CMD                   (0xA9, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETUPLIST_CMD                 (0xAA, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_GETGRADE_CMD                  (0xA8, {}),
+  CSAFE_GETGEAR_CMD                   (0xA9, {}),
+  CSAFE_GETUPLIST_CMD                 (0xAA, {}),
   CSAFE_GETUSERINFO_CMD               (0xAB, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETTORQUE_CMD                 (0xAC, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_GETTORQUE_CMD                 (0xAC, {}),
   CSAFE_GETHRCUR_CMD                  (0xB0, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETHRTZONE_CMD                (0xB2, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETMETS_CMD                   (0xB3, {"buffer": FrameFieldType.VAR_BUFF}),
+  CSAFE_GETHRTZONE_CMD                (0xB2, {}),
+  CSAFE_GETMETS_CMD                   (0xB3, {}),
   CSAFE_GETPOWER_CMD                  (0xB4, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETHRAVG_CMD                  (0xB5, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETHRMAX_CMD                  (0xB6, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETUSERDATA1_CMD              (0xBE, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETUSERDATA2_CMD              (0xBF, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETAUDIOCHANNEL_CMD           (0xC0, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETAUDIOVOLUME_CMD            (0xC1, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETAUDIOMUTE_CMD              (0xC2, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_ENDTEXT_CMD                   (0xE0, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_DISPLAYPOPUP_CMD              (0xE1, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_GETPOPUPSTATUS_CMD            (0xE5, {"buffer": FrameFieldType.VAR_BUFF}),
-  CSAFE_CTRL_CMD_SHORT_MAX            (0xE6, {"buffer": FrameFieldType.VAR_BUFF});
+  CSAFE_GETHRAVG_CMD                  (0xB5, {}),
+  CSAFE_GETHRMAX_CMD                  (0xB6, {}),
+  CSAFE_GETUSERDATA1_CMD              (0xBE, {}),
+  CSAFE_GETUSERDATA2_CMD              (0xBF, {}),
+  CSAFE_GETAUDIOCHANNEL_CMD           (0xC0, {}),
+  CSAFE_GETAUDIOVOLUME_CMD            (0xC1, {}),
+  CSAFE_GETAUDIOMUTE_CMD              (0xC2, {}),
+  CSAFE_ENDTEXT_CMD                   (0xE0, {}),
+  CSAFE_DISPLAYPOPUP_CMD              (0xE1, {}),
+  CSAFE_GETPOPUPSTATUS_CMD            (0xE5, {"buffer": FrameFieldType.VAR_BUFF});
   final int id;
   final Map<String, FrameFieldType>fields;
   const CSAFE_PUBLIC_SHORT_CMDS(this.id, this.fields);
@@ -466,17 +465,21 @@ enum CSAFE_PROP_LONG_SET_DATA_CMDS {
   const CSAFE_PROP_LONG_SET_DATA_CMDS(this.id, this.fields);
 }
 
-const Map<int, String>STATE_MACHINE_STATE = {
-  0x00: "Error",
-  0x01: "Ready",
-  0x02: "Idle",
-  0x03: "Have ID",
-  0x05: "In Use",
-  0x06: "Pause",
-  0x07: "Finish",
-  0x08: "Manual",
-  0x09: "Off line"
-};
+enum STATE_MACHINE_STATE {
+  Error           (0x00, "Error"),
+  Ready           (0x01, "Ready"),
+  Idle            (0x02, "Idle"),
+  HaveID          (0x03, "Have ID"),
+  InUse           (0x05, "In Use"),
+  Pause           (0x06, "Pause"),
+  Finish          (0x07, "Finish"),
+  Manual          (0x08, "Manual"),
+  Offline         (0x09, "Off line");
+  final int id;
+  final String text;
+  const STATE_MACHINE_STATE(this.id, this.text);
+  static fromInt(int v) => STATE_MACHINE_STATE.values.firstWhere((e) => (e.id == (v & 0x0F)));
+}
 
 const Map<int, String>PREVIOUS_FRAME_STATUS = {
   0x00: "Ok",
@@ -524,8 +527,10 @@ enum RACE_TYPE {
   RACETYPE_FIXEDTIME_CALSCORE_TEAMERG                            (34),
   RACETYPE_FIXEDDIST_TIMECAP_SINGLEERG                           (35),
   RACETYPE_FIXEDCAL_TIMECAP_SINGLEERG                            (36);
-  final int id;
-  const RACE_TYPE(this.id);
 
+  // @formatter:on
+  final int id;
+
+  const RACE_TYPE(this.id);
 }
 // @formatter:on

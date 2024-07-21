@@ -1,5 +1,4 @@
 import '../../ergc2_pm_csafe.dart';
-import 'c2proplongsetconfigcommands.dart';
 import 'csafe_constants.dart';
 
 extension IntExtensions on int {
@@ -16,7 +15,7 @@ class CsafeFrameProcessor {
     Map<int, CsafeFrameContentBaseProcessor> v = {};
 
     for (CSAFE_PUBLIC_SHORT_CMDS e in CSAFE_PUBLIC_SHORT_CMDS.values) {
-      v.putIfAbsent(e.id, () => CsafeFrameContentProcessor(e.id, e.fields));
+      v.putIfAbsent(e.id, () => CsafePublicShorCmdProcessor(e.id, e.fields));
     }
 
     for (CSAFE_PUBLIC_LONG_CMDS e in CSAFE_PUBLIC_LONG_CMDS.values) {
@@ -41,15 +40,13 @@ class CsafeFrameProcessor {
 
   static _addressText(int v) => v == 0x00 ? "Master" : "Slave";
 
-  static _stateText(int v) => STATE_MACHINE_STATE[(v & 0x0F)];
-
   static _previousFrameStatus2text(int v) => PREVIOUS_FRAME_STATUS[(v & 0x30)];
 
   static IntList _unstuff(IntList inputList) {
     IntList data = [];
     for (int i = 0; i < inputList.length; i++) {
-      if (inputList[i] == 0xF3) {
-        data.add(inputList[i + 1] + 0xF0);
+      if (inputList[i] == CSAFE_FRAME_STUFF_BYTE) {
+        data.add(inputList[i + 1] + CSAFE_EXT_FRAME_START_BYTE);
         i++;
       } else {
         data.add(inputList[i]);
@@ -58,7 +55,7 @@ class CsafeFrameProcessor {
     return data;
   }
 
-  Map<String, Object> parseResponseFrame(IntList inputList) {
+  Map<String, Object> deserializePropFrame(IntList inputList) {
     IntList data = _unstuff(inputList);
     Map<String, Object> response = {};
     int i = 0;
@@ -68,13 +65,14 @@ class CsafeFrameProcessor {
             DataConvUtils.csafe_checksum(data, 3, data.length - 1);
         response["source"] = _addressText(data[++i]);
         response["target"] = _addressText(data[++i]);
-        response["state"] = _stateText(data[++i])!;
-        response["previousFrameStatus"] = _previousFrameStatus2text(data[i])!;
+        response["state"] = STATE_MACHINE_STATE.fromInt(data[++i])!.text;
+        response["previousFrameStatus"] = _previousFrameStatus2text(data[i]);
         i = 4;
       case CSAFE_FRAME_START_BYTE:
         response["checksum"] =
             DataConvUtils.csafe_checksum(data, 1, data.length - 1);
-        response["state"] = _stateText(data[++i])!;
+        int id = data[++i];
+        response["state"] = STATE_MACHINE_STATE.fromInt(id).text;
         i = 2;
       default:
         throw Exception("no start byte");
@@ -84,6 +82,28 @@ class CsafeFrameProcessor {
     CsafeFrameProcessorContext context = CsafeFrameProcessorContext();
     for (int j = i; j < data.length - 1; j++) {
       //print("#$j:value=${data[j].toRadixString(16).padLeft(2, '0')}");
+      int v = data[j];
+      if (_responseParser.containsKey(v)) {
+        j = _responseParser[v]!.process(context, data, j);
+      } else {
+        throw Exception("Command $v at $j not found");
+      }
+    }
+    response.putIfAbsent("data", () => context.result);
+
+    //print(jsonEncode(response));
+    return response;
+  }
+
+  Map<String, Object> deserializePublicFrame(IntList inputList) {
+    IntList data = _unstuff(inputList);
+    Map<String, Object> response = {};
+    int i = 0;
+    response["checksum"] =
+        DataConvUtils.csafe_checksum(data, 1, data.length - 1);
+    i = 1;
+    CsafeFrameProcessorContext context = CsafeFrameProcessorContext();
+    for (int j = i; j < data.length - 2; j++) {
       int v = data[j];
       if (_responseParser.containsKey(v)) {
         j = _responseParser[v]!.process(context, data, j);
@@ -149,12 +169,14 @@ class CsafeFrameWrapperProcessor extends CsafeFrameContentBaseProcessor {
     //5. C2 Proprietary Short Set Configuration Commands
     for (CSAFE_PROP_SHORT_SET_CONFIG_CMDS e
         in CSAFE_PROP_SHORT_SET_CONFIG_CMDS.values) {
-      v.putIfAbsent(e.id, () => CsafePropShortSetConfigCmdProcessor(e.id, e.fields));
+      v.putIfAbsent(
+          e.id, () => CsafePropShortSetConfigCmdProcessor(e.id, e.fields));
     }
     //6. C2 Proprietary Short Set Data Commands
     for (CSAFE_PROP_SHORT_SET_DATA_CMDS e
         in CSAFE_PROP_SHORT_SET_DATA_CMDS.values) {
-      v.putIfAbsent(e.id, () => CsafePropShortSetDataCmdProcessor(e.id, e.fields));
+      v.putIfAbsent(
+          e.id, () => CsafePropShortSetDataCmdProcessor(e.id, e.fields));
     }
     //7. C2 Proprietary Long Set Configuration Commands
     for (CSAFE_PROP_LONG_SET_CONFIG_CMDS e
@@ -227,6 +249,44 @@ class CsafeFrameContentProcessor extends CsafeFrameContentBaseProcessor {
   }
 }
 
+//CSAFE_PROP_SHORT_SET_CONFIG_CMDS
+class CsafePublicShorCmdProcessor extends CsafeFrameContentBaseProcessor {
+  Map<String, FrameFieldType> fields;
+
+  CsafePublicShorCmdProcessor(super.cmd, this.fields);
+
+  @override
+  int process(CsafeFrameProcessorContext context, IntList data, int start) {
+    int cmd = data[start];
+    assert(cmd == this.cmd);
+    int length = data[start + 1];
+    int pos = start + 2;
+    fields.forEach((key, value) {
+      // @formatter:off
+        switch(value){
+          case FrameFieldType.CHAR:
+            context.result.putIfAbsent(key, () => data[pos].toString());
+            pos = pos + 1;
+          case FrameFieldType.INT:
+            context.result.putIfAbsent(key, () => data[pos]);
+            pos = pos + 1;
+          case FrameFieldType.INT2:
+            context.result.putIfAbsent(key, () => (data[pos] << 8) + data[pos+1]);
+            pos = pos + 2;
+          case FrameFieldType.INT3:
+            context.result.putIfAbsent(key, () => (data[pos] << 16) + (data[pos+1] << 8) + data[pos+2]);
+            pos = pos + 3;
+          case FrameFieldType.INT4:
+            context.result.putIfAbsent(key, () => (data[pos] << 24) + (data[pos+1] << 16) + (data[pos+2] << 8) + data[pos+3]);
+            pos = pos + 4;
+          default:
+        }
+      // @formatter:on
+    });
+
+    return pos;
+  }
+}
 
 //CSAFE_PROP_SHORT_SET_CONFIG_CMDS
 class CsafePropShortSetConfigCmdProcessor
@@ -240,14 +300,17 @@ class CsafePropShortSetConfigCmdProcessor
     int cmd = data[start];
     assert(cmd == this.cmd);
     int pos = start;
-    context.result.putIfAbsent('0x${data[pos].toRadixString(16).padLeft(2, '0')}#$start', () => CSAFE_PROP_SHORT_SET_CONFIG_CMDS.values[cmd].toString());
+    context.result.putIfAbsent(
+        '0x${data[pos].toRadixString(16).padLeft(2, '0')}#$start',
+        () => CSAFE_PROP_SHORT_SET_CONFIG_CMDS.values
+            .firstWhere((en) => en.id == cmd)
+            .toString());
     return pos;
   }
 }
 
 //CSAFE_PROP_SHORT_SET_DATA_CMDS
-class CsafePropShortSetDataCmdProcessor
-    extends CsafeFrameContentBaseProcessor {
+class CsafePropShortSetDataCmdProcessor extends CsafeFrameContentBaseProcessor {
   Map<String, FrameFieldType>? fields;
 
   CsafePropShortSetDataCmdProcessor(super.cmd, this.fields);
@@ -257,11 +320,14 @@ class CsafePropShortSetDataCmdProcessor
     int cmd = data[start];
     assert(cmd == this.cmd);
     int pos = start;
-    context.result.putIfAbsent('0x${data[pos].toRadixString(16).padLeft(2, '0')}#$start', () => CSAFE_PROP_SHORT_SET_DATA_CMDS.values[cmd].toString());
+    context.result.putIfAbsent(
+        '0x${data[pos].toRadixString(16).padLeft(2, '0')}#$start',
+        () => CSAFE_PROP_SHORT_SET_DATA_CMDS.values
+            .firstWhere((en) => en.id == cmd)
+            .toString());
     return pos;
   }
 }
-
 
 //CSAFE_PROP_LONG_SET_CONFIG_CMDS
 class CsafePropLongSetConfigCmdProcessor
@@ -275,7 +341,11 @@ class CsafePropLongSetConfigCmdProcessor
     int cmd = data[start];
     assert(cmd == this.cmd);
     int pos = start;
-    context.result.putIfAbsent('0x${data[pos].toRadixString(16).padLeft(2, '0')}#$start', () => CSAFE_PROP_LONG_SET_CONFIG_CMDS.values[cmd].toString());
+    context.result.putIfAbsent(
+        '0x${data[pos].toRadixString(16).padLeft(2, '0')}#$start',
+        () => CSAFE_PROP_LONG_SET_CONFIG_CMDS.values
+            .firstWhere((en) => en.id == cmd)
+            .toString());
     return pos;
   }
 }
