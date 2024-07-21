@@ -95,25 +95,14 @@ class CsafeFrameProcessor {
     return response;
   }
 
-  Map<String, Object> deserializePublicFrame(IntList inputList) {
+  Map<String, Object> deserializePublicFrame(int responseTo, IntList inputList) {
     IntList data = _unstuff(inputList);
     Map<String, Object> response = {};
     int i = 0;
     response["checksum"] =
         DataConvUtils.csafe_checksum(data, 1, data.length - 1);
-    i = 1;
-    CsafeFrameProcessorContext context = CsafeFrameProcessorContext();
-    for (int j = i; j < data.length - 2; j++) {
-      int v = data[j];
-      if (_responseParser.containsKey(v)) {
-        j = _responseParser[v]!.process(context, data, j);
-      } else {
-        throw Exception("Command $v at $j not found");
-      }
-    }
-    response.putIfAbsent("data", () => context.result);
-
-    //print(jsonEncode(response));
+    int id = data[++i];
+    response["state"] = STATE_MACHINE_STATE.fromInt(id).text;
     return response;
   }
 }

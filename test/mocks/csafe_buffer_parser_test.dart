@@ -63,7 +63,7 @@ void main() {
         String input = csafeList[i].stripCommnad().replaceAll(" ", "");
         IntList response = DataConvUtils.hexStringToIntArray(input);
         Map<String, Object> mappedResponse =
-        parser.deserializePublicFrame(response);
+        parser.deserializePublicFrame(0x87, response);
         print(mappedResponse.toString());
       } catch (ex) {
         print(ex);
