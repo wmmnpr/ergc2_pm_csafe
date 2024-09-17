@@ -1,3 +1,5 @@
+@Deprecated see flutter_ble_c2pm
+
 A Dart library for interacting with the PM5 from concept2 via Bluetooth. 
 See flutter_pm5 to be able to easily use this library with Flutter.
 
